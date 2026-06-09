@@ -4,6 +4,7 @@ import Link from "next/link";
 
 export default function ForYouPage() {
   const [books, setBooks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     async function fetchBooks() {
@@ -16,16 +17,26 @@ export default function ForYouPage() {
     fetchBooks();
   }, []);
 
-  console.log(books);
+  const filteredBooks = books.filter(book =>
+    book.title && book.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  );
 
   return (
-    <div className="container">
+    <div className="search-container">
       <h1>Recommended Books</h1>
+
+      <input className="search-input"
+        type="text"
+        placeholder="Search for a book..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{ padding: "10px", marginBottom: "20px", width: "300px", }}
+      />
       <div className="books-grid">
         {books && books.length > 0 ? (
           books.map((book) => (
-            <Link href={`/books/${book.id}`}>
-              <div key={book.id} className="book-card">
+            <Link key={book.id} href={`/books/${book.id}`}>
+              <div className="book-card">
                 <img
                   src={book.imageLink}
                   alt={book.title}
