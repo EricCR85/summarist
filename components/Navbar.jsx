@@ -1,3 +1,11 @@
+"use client";
+import { useState } from "react";
+import AuthModal from "./AuthModal";
+
+
+
+
+
 export default function Navbar() {
   return (
     <nav className="nav">
@@ -6,12 +14,16 @@ export default function Navbar() {
           <img className="nav__img" src="/assets/logo.png" alt="logo" />
         </figure>
         <ul className="nav__list--wrapper">
-          <li className="nav__list nav__list--login">Login</li>
+          <li className="nav__list nav__list--login" onClick={() => setShowModal(true)}>
+            Login
+          </li>
+
           <li className="nav__list nav__list--mobile">About</li>
           <li className="nav__list nav__list--mobile">Contact</li>
           <li className="nav__list nav__list--mobile">Help</li>
         </ul>
       </div>
+      {showModal && <AuthModal toggleModal={() => setShowModal(false)} />}
     </nav>
   );
 }
