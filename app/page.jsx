@@ -3,25 +3,14 @@ import { AiFillAudio, AiFillBulb, AiFillFileText } from "react-icons/ai";
 import { BiCrown } from "react-icons/bi";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { RiLeafLine } from "react-icons/ri";
-import Navbar from './components/Navbar';
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
     <>
-    <Navbar />
-      <nav className="nav">
-        <div className="nav__wrapper">
-          <figure className="nav__img--mask">
-            <img className="nav__img" src="/assets/logo.png" alt="logo" />
-          </figure>
-          <ul className="nav__list--wrapper">
-            <li className="nav__list nav__list--login">Login</li>
-            <li className="nav__list nav__list--mobile">About</li>
-            <li className="nav__list nav__list--mobile">Contact</li>
-            <li className="nav__list nav__list--mobile">Help</li>
-          </ul>
-        </div>
-      </nav>
+      <Navbar />
+
       <section id="landing">
         <div className="container">
           <div className="row">
@@ -269,87 +258,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section id="footer">
-        <div className="container">
-          <div className="row">
-            <div className="footer__top--wrapper">
-              <div className="footer__block">
-                <div className="footer__link--title">Actions</div>
-                <div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Summarist Magazine</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Cancel Subscription</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Help</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Contact us</a>
-                  </div>
-                </div>
-              </div>
-              <div className="footer__block">
-                <div className="footer__link--title">Useful Links</div>
-                <div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Pricing</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Summarist Business</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Gift Cards</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Authors & Publishers</a>
-                  </div>
-                </div>
-              </div>
-              <div className="footer__block">
-                <div className="footer__link--title">Company</div>
-                <div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">About</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Careers</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Partners</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Code of Conduct</a>
-                  </div>
-                </div>
-              </div>
-              <div className="footer__block">
-                <div className="footer__link--title">Other</div>
-                <div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Sitemap</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Legal Notice</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Terms of Service</a>
-                  </div>
-                  <div className="footer__link--wrapper">
-                    <a className="footer__link">Privacy Policies</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="footer__copyright--wrapper">
-              <div className="footer__copyright">
-                Copyright &copy; 2023 Summarist.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <Footer />
     </>
   );
 }
