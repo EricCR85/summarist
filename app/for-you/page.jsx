@@ -10,8 +10,9 @@ export default function ForYouPage() {
         "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended",
       );
       const data = await response.json();
-      setBooks();
+      setBooks(data);
     }
+    fetchBooks();
   }, []);
 
   console.log(books)
