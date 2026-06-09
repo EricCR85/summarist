@@ -34,7 +34,7 @@ export default function ForYouPage() {
       />
       <div className="books-grid">
         {books && books.length > 0 ? (
-          books.map((book) => (
+          filteredBooks.map((book) => (
             <Link key={book.id} href={`/books/${book.id}`}>
               <div className="book-card">
                 <img
