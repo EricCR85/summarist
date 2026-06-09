@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { db, auth } from "../../../firebase";
+import { db, auth } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 export default function BookDetails() {

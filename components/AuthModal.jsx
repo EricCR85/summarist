@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { auth } from "../app/firebase";
+import { auth } from "../firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function AuthModal({ toggleModal }) {
