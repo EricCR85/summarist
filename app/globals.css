@@ -48,6 +48,7 @@ button:disabled {
 }
 
 .container {
+  margin: auto;
   padding: 40px 0;
   width: 100%;
 }
