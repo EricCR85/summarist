@@ -7,6 +7,9 @@ import AuthModal from "./AuthModal";
 
 
 export default function Navbar() {
+
+const [showModal, setShowModal] = useState(false);
+
   return (
     <nav className="nav">
       <div className="nav__wrapper">
@@ -22,6 +25,7 @@ export default function Navbar() {
           <li className="nav__list nav__list--mobile">Contact</li>
           <li className="nav__list nav__list--mobile">Help</li>
         </ul>
+        <button onClick={() =>  setShowModal(true)}>Log in</button>
       </div>
       {showModal && <AuthModal toggleModal={() => setShowModal(false)} />}
     </nav>
