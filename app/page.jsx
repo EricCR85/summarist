@@ -3,16 +3,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-    <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css" />
-    <title>Summarist Home Page</title>
-  </head>
-  <body>
+
     <nav className="nav">
       <div className="nav__wrapper">
         <figure className="nav__img--mask">
@@ -126,8 +117,8 @@ export default function Home() {
               <div className="statistics__data">
                 <div className="statistics__data--number">91%</div>
                 <div className="statistics__data--title">
-                  of Summarist members <b>report feeling more productive</b>{"
-                  "} after incorporating the service into their daily routine.
+                  of Summarist members <b>report feeling more productive</b>
+                   after incorporating the service into their daily routine.
                 </div>
               </div>
               <div className="statistics__data">
@@ -341,8 +332,6 @@ export default function Home() {
         </div>
       </div>
     </section>
-  </body>
-</html>
     </>
  
 
