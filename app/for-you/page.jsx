@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function ForYouPage() {
   const [books, setBooks] = useState([]);
@@ -15,7 +16,7 @@ export default function ForYouPage() {
     fetchBooks();
   }, []);
 
-  console.log(books)
+  console.log(books);
 
   return (
     <div className="container">
@@ -23,15 +24,17 @@ export default function ForYouPage() {
       <div className="books-grid">
         {books && books.length > 0 ? (
           books.map((book) => (
-            <div key={book.id} className="book-card">
-              <img
-                src={book.imageLink}
-                alt={book.title}
-                style={{ width: "150px" }}
-              />
-              <h3>{book.title}</h3>
-              <p>{book.author}</p>
-            </div>
+            <Link href={`/books/${book.id}`}>
+              <div key={book.id} className="book-card">
+                <img
+                  src={book.imageLink}
+                  alt={book.title}
+                  style={{ width: "150px" }}
+                />
+                <h3>{book.title}</h3>
+                <p>{book.author}</p>
+              </div>
+            </Link>
           ))
         ) : (
           <p>Loading books... or no books found.</p>
