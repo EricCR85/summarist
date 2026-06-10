@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { db, auth } from "../../firebase";
+import { db, auth } from "../../../firebase.js";
 import { doc, setDoc } from "firebase/firestore";
 
 export default function BookDetails() {
@@ -52,7 +52,7 @@ export default function BookDetails() {
 
       <button
       onClick={addToLibrary}
-      style={{ padding: "10px 20px", cursor: 'pointer', marginTop: '20px' }}>
+      style={{ padding: "10px 20px", cursor: 'pointer', backgroundColor: '#0070f3', color: 'white', border: 'none', borderRadius: '5px' }}>
         Add to Library
       </button>
     </div>
