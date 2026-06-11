@@ -11,8 +11,8 @@ import {
 
 export default function Sidebar() {
   return (
-    <aside className="w-64 h-screen border-r p-6 hidden md:block">
-      <div className="text-2xl font-bold mb-10">Summarist</div>
+    <aside className="w-[250] h-full border-r p-6 bg-white border-r-gray-200">
+      <div className="text-2xl font-bold mb-10 text-blue-600">Summarist</div>
 
       <nav className="space-y-6">
         <Link

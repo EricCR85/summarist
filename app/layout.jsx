@@ -20,11 +20,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      >
-        <Sidebar />
-        {children}
+      <body className="m-0 p-0">
+        {/* We use flex to place them side-by-side */}
+        <div style={{ display: "flex", width: "100%" }}>
+          {/* Sidebar takes fixed width */}
+          <div style={{ width: "250px", flexShrink: 0 }}>
+            <Sidebar />
+          </div>
+
+          {/* Main content takes all remaining space */}
+          <main style={{ flex: 1, padding: "20px" }}>{children}</main>
+        </div>
       </body>
     </html>
   );
