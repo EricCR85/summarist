@@ -13,7 +13,7 @@ export default function BookDetails() {
     async function fetchBook() {
       try {
         const response = await fetch(
-          `https://us-central1-summarist.cloudfunctions.net/getBook?id=${id}`,
+          `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`,
         );
         const data = await response.json();
         setBook(data);
@@ -47,14 +47,14 @@ export default function BookDetails() {
 
   return (
     <div className="p-10">
-      <h1>{book.title}</h1>
-      <p>By {book.author}</p>
-      <img src={book.imageLink} alt={book.title} className="w-64" />
-      <p>{book.summary}</p>
+      <h1 className="text-3xl font-bold">{book.title}</h1>
+      <p className="text-xl text-gray-600 mb-4">By {book.author}</p>
+      <img src={book.imageLink} alt={book.title} className="w-64 rounded-lg shadow-md mb-6" />
+      <p className="max-w-2xl">{book.summary}</p>
 
       <button
         onClick={addToLibrary}
-        className="mt-6 bg-blue-600 text-white px-6 py-2 rounded"
+        className="mt-6 bg-red-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 trasition"
       >
         Add to Library
       </button>
