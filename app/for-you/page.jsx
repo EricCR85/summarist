@@ -17,21 +17,15 @@ export default function ForYouPage() {
     fetchBooks();
   }, []);
 
-  const filteredBooks = books.filter(book =>
-    book.title && book.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  const filteredBooks = books.filter(
+    (book) =>
+      book.title && book.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
     <div className="search-container">
       <h1>Recommended Books</h1>
 
-      <input className="search-input"
-        type="text"
-        placeholder="Search for a book..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ padding: "10px", marginBottom: "20px", width: "300px", }}
-      />
       <div className="books-grid">
         {books && books.length > 0 ? (
           filteredBooks.map((book) => (
