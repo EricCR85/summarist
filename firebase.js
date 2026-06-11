@@ -10,7 +10,7 @@ const firebaseConfig = {
   storageBucket: "summarist-52f20.firebasestorage.app",
   messagingSenderId: "404591973847",
   appId: "1:404591973847:web:4f68335f9a1fc7fc4b6792",
-  measurementId: "G-3DW1KDMT1V"
+  measurementId: "G-3DW1KDMT1V",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -22,6 +22,6 @@ if (typeof window !== "undefined") {
 }
 
 export const auth = getAuth(app);
-export { analytics }
+export { analytics };
 
 export const db = getFirestore(app);

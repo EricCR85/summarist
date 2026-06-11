@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { db, auth } from "../../../firebase.js";
-import { doc, setDoc } from "firebase/firestore";
+import { db, auth } from "../../../firebase"; // Ensure this path correctly points to your firebase.js
+import { collection, addDoc } from "firebase/firestore";
 
 export default function BookDetails() {
   const { id } = useParams();
@@ -13,46 +13,49 @@ export default function BookDetails() {
     async function fetchBook() {
       try {
         const response = await fetch(
-          `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`,
+          `https://us-central1-summarist.cloudfunctions.net/getBook?id=${id}`,
         );
         const data = await response.json();
         setBook(data);
       } catch (error) {
-        console.error("Error fetching book:", error);
+        console.error("Error details:", error);
       }
     }
     fetchBook();
   }, [id]);
 
   const addToLibrary = async () => {
-    if (!auth.currentUser) return alert("please log in to save books!");
+    if (!auth.currentUser) return alert("Please log in to save books!");
 
     try {
-        await setDoc(doc(db, "users", auth.currentUser.uid, "Library", id), {
-            title: book.title,
-            author: book.author,
-            image: book.imageLink,
-            summary: book.summary
-        });
-        alert("Book added to your library!");
+      // Writing to the same "library" collection your hook uses
+      await addDoc(collection(db, "library"), {
+        userId: auth.currentUser.uid,
+        title: book.title,
+        author: book.author,
+        coverImage: book.imageLink,
+        summary: book.summary,
+      });
+      alert("Book added to your library!");
     } catch (error) {
-        alert ("Error adding book: " + error.message);
+      console.error("Error adding book: ", error);
+      alert("Error adding book: " + error.message);
     }
-        
-  }
+  };
 
-  if (!book) return <p>Loading book details...</p>;
+  if (!book) return <div>Loading...</div>;
 
   return (
-    <div className="book-details-container" style={{ padding: '20px' }}>
+    <div className="p-10">
       <h1>{book.title}</h1>
-      <h3>{book.author}</h3>
-      <img src={book.imageLink} alt={book.title} style={{ width: "200px" }} />
+      <p>By {book.author}</p>
+      <img src={book.imageLink} alt={book.title} className="w-64" />
       <p>{book.summary}</p>
 
       <button
-      onClick={addToLibrary}
-      style={{ padding: "10px 20px", cursor: 'pointer', backgroundColor: '#0070f3', color: 'white', border: 'none', borderRadius: '5px' }}>
+        onClick={addToLibrary}
+        className="mt-6 bg-blue-600 text-white px-6 py-2 rounded"
+      >
         Add to Library
       </button>
     </div>
