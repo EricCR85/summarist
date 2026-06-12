@@ -3,7 +3,7 @@ const API_BASE_URL = "https://us-central1-summaristt.cloudfunctions.net";
 export async function getBooks() {
   // 1. Create an AbortController to manage the timeout
   const controller = new AbortController();
-//   const timeoutId = setTimeout(() => controller.abort(), 15000); // 5-second timeout
+  const timeoutId = setTimeout(() => controller.abort(), 15000); // 5-second timeout
 
   try {
     console.log("Fetching books with 5s timeout...");
