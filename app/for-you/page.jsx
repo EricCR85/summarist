@@ -7,21 +7,30 @@ export default function ForYouPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Declare timeoutId in the effect scope so it can be cleared
+    let timeoutId;
+
     async function loadBooks() {
+      setLoading(true);
       try {
-        // Fetch the data
+        // Example: If getBooks supports a timeout, pass it, or handle it manually
         const data = await getBooks();
 
-        // Ensure we are setting an array. If 'data' is the array itself,
-        // this works. If it's nested (e.g., data.data), adjust accordingly.
-        setBooks(Array.isArray(data) ? data : []);
+        // Ensure we are setting an array
+        setBooks(Array.isArray(data) ? data : data?.data || []);
       } catch (error) {
         console.error("Failed to load books", error);
       } finally {
         setLoading(false);
       }
     }
+
     loadBooks();
+
+    // Cleanup function
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   if (loading) {
@@ -32,7 +41,6 @@ export default function ForYouPage() {
     <div className="p-4">
       <h1 className="text-3xl font-bold mb-8">Selected Books For You</h1>
 
-      {/* Grid container */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {books.map((book) => (
           <div

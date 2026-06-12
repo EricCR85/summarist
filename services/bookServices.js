@@ -1,40 +1,20 @@
-const API_BASE_URL = "https://us-central1-summaristt.cloudfunctions.net";
-
-export async function getBooks() {
-  // 1. Create an AbortController to manage the timeout
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000); // 5-second timeout
-
+export const getBooks = async () => {
   try {
-    console.log("Fetching books with 5s timeout...");
-
-    // 2. Pass the signal to the fetch request
-    const response = await fetch(`${API_BASE_URL}/getBooks`, {
-      signal: controller.signal,
-    });
-
-    // Clear the timeout if the request succeeds
-    clearTimeout(timeoutId);
+    // Ensure the path matches your actual API route
+    const response = await fetch("/api/books");
 
     if (!response.ok) {
-      console.error("Server responded with status:", response.status);
-      return [];
-    }
-
-    const data = await response.json();
-    console.log("Data successfully retrieved:", data);
-    return data;
-  } catch (error) {
-    clearTimeout(timeoutId); // Ensure timeout is cleared on error
-
-    if (error.name === "AbortError") {
-      console.error(
-        "Fetch Error: Request timed out (took longer than 5 seconds)",
+      // Capture server-side error details
+      const errorDetails = await response.text();
+      console.error(`Fetch Error: ${response.status} - ${errorDetails}`);
+      throw new Error(
+        `Server responded with ${response.status}: ${errorDetails}`,
       );
-    } else {
-      console.error("Fetch Error:", error.message);
     }
 
-    return [];
+    return await response.json();
+  } catch (error) {
+    console.error("Critical error in getBooks:", error);
+    throw error;
   }
-}
+};
