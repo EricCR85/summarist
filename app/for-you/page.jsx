@@ -1,49 +1,54 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { getBooks } from "../../services/bookServices";
 
 export default function ForYouPage() {
   const [books, setBooks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchBooks() {
-      const response = await fetch(
-        "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended",
-      );
-      const data = await response.json();
-      setBooks(data);
+    async function loadBooks() {
+      try {
+        // Fetch the data
+        const data = await getBooks();
+
+        // Ensure we are setting an array. If 'data' is the array itself,
+        // this works. If it's nested (e.g., data.data), adjust accordingly.
+        setBooks(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error("Failed to load books", error);
+      } finally {
+        setLoading(false);
+      }
     }
-    fetchBooks();
+    loadBooks();
   }, []);
 
-  const filteredBooks = books.filter(
-    (book) =>
-      book.title && book.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  if (loading) {
+    return <div className="p-8 text-xl">Loading library...</div>;
+  }
 
   return (
-    <div className="search-container">
-      <h1>Recommended Books</h1>
+    <div className="p-4">
+      <h1 className="text-3xl font-bold mb-8">Selected Books For You</h1>
 
-      <div className="books-grid">
-        {books && books.length > 0 ? (
-          filteredBooks.map((book) => (
-            <Link key={book.id} href={`/books/${book.id}`}>
-              <div className="book-card">
-                <img
-                  src={book.imageLink}
-                  alt={book.title}
-                  style={{ width: "150px" }}
-                />
-                <h3>{book.title}</h3>
-                <p>{book.author}</p>
-              </div>
-            </Link>
-          ))
-        ) : (
-          <p>Loading books... or no books found.</p>
-        )}
+      {/* Grid container */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {books.map((book) => (
+          <div
+            key={book.id}
+            className="flex flex-col border border-gray-200 rounded-lg p-4 hover:shadow-lg transition cursor-pointer"
+          >
+            <img
+              src={book.imageURL}
+              alt={book.title}
+              className="w-full h-64 object-cover rounded mb-4"
+            />
+            <h3 className="font-bold text-lg mb-1">{book.title}</h3>
+            <p className="text-gray-600 mb-2">{book.author}</p>
+            <p className="text-sm text-gray-400 mt-auto">{book.subTitle}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
