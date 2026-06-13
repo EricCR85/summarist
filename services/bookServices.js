@@ -1,19 +1,23 @@
-export const getBooks = async (query) => {
+export async function getBooks(url) {
+  console.log("attempting to fetch from exaclty this URL path:", url);
   try {
-    const url =
-      query && query.trim().length > 2
-        ? `/api/books?search=${encodeURIComponent(query)}`
-        : `/api/books`;
-
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Proxy call failed with status: ${response.status}`);
+      console.error(`Request failed with status: ${response.status}`);
+      return [];
     }
 
-    return await response.json();
+    const text = await response.text();
+
+    if (text.trim().startsWith("{") || text.trim().startsWith("[")) {
+      return JSON.parse(text);
+    } else {
+      console.error("Response is not JSON:", text);
+      return [];
+    }
   } catch (error) {
-    console.error("Critical error in getBooks service:", error);
+    console.error("Error:", error);
     return [];
   }
-};
+}

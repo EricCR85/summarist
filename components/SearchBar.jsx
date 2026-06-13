@@ -10,15 +10,11 @@ export default function SearchBar() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!query || query.length <= 2) {
-      setResults([]);
-      return;
-    }
 
     const delayDebounceFn = setTimeout(async () => {
       setIsLoading(true);
       try {
-        const data = await getBooks(query);
+        const data = await getBooks(`/api/books?search=${query}`);
         setResults(data);
       } catch (error) {
         console.error("Error fetching books:", error);
@@ -44,7 +40,8 @@ export default function SearchBar() {
       </div>
 
       {isLoading && <p>Searching...</p>}
-      {!isLoading && results.length === 0 && query.length > 2 && (
+
+      {!isLoading && results.length === 0 && query.length > 0 && (
         <p>No books found.</p>
       )}
 
