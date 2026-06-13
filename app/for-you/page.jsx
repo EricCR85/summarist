@@ -15,7 +15,7 @@ export default function ForYouPage() {
       try {
         // Example: If getBooks supports a timeout, pass it, or handle it manually
         const data = await getBooks();
-
+        console.log(data);
         // Ensure we are setting an array
         setBooks(Array.isArray(data) ? data : data?.data || []);
       } catch (error) {
@@ -48,7 +48,7 @@ export default function ForYouPage() {
             className="flex flex-col border border-gray-200 rounded-lg p-4 hover:shadow-lg transition cursor-pointer"
           >
             <img
-              src={book.imageURL}
+              src={book.imageLink}
               alt={book.title}
               className="w-full h-64 object-cover rounded mb-4"
             />
