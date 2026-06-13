@@ -1,35 +1,58 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import { getBooks } from "../services/bookServices";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // 1. Set up the delay timer (debounce)
-    const delayDebounceFn = setTimeout(async () => {
-      if (query.length > 2) {
-        console.log("Searching for:", query);
-        // Replace this console.log with your actual API fetch call:
-        // const res = await fetch(`https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${query}`);
-        // const data = await res.json();
-      }
-    }, 300); // Wait 300ms
+    if (!query || query.length <= 2) {
+      setResults([]);
+      return;
+    }
 
-    // 2. Clear the timer if the user types again before the 300ms is up
+    const delayDebounceFn = setTimeout(async () => {
+      setIsLoading(true);
+      try {
+        const data = await getBooks(query);
+        setResults(data);
+      } catch (error) {
+        console.error("Error fetching books:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 500);
+
     return () => clearTimeout(delayDebounceFn);
   }, [query]);
 
   return (
-    <div className="flex items-center gap-2 border-b pb-4 mb-6 w-full max-w-lg">
-      <AiOutlineSearch className="text-xl text-gray-500" />
-      <input
-        type="text"
-        placeholder="Search for books by title or author"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-full outline-none text-lg bg-transparent"
-      />
+    <div className="flex flex-col w-full max-w-lg">
+      <div className="flex items-center gap-2 border-b pb-4 mb-6">
+        <AiOutlineSearch className="text-xl text-gray-500" />
+        <input
+          type="text"
+          placeholder="Search for books by title or author"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full outline-none text-lg bg-transparent"
+        />
+      </div>
+
+      {isLoading && <p>Searching...</p>}
+      {!isLoading && results.length === 0 && query.length > 2 && (
+        <p>No books found.</p>
+      )}
+
+      <ul>
+        {results.map((book) => (
+          <li key={book.id}>{book.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }

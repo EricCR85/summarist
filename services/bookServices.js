@@ -1,20 +1,18 @@
-export const getBooks = async () => {
+export const getBooks = async (query) => {
+  if (!query || query.trim().length <= 2) return [];
+
   try {
-    // Ensure the path matches your actual API route
-    const response = await fetch("/api/books");
+    const response = await fetch(
+      `/api/books?search=${encodeURIComponent(query)}`,
+    );
 
     if (!response.ok) {
-      // Capture server-side error details
-      const errorDetails = await response.text();
-      console.error(`Fetch Error: ${response.status} - ${errorDetails}`);
-      throw new Error(
-        `Server responded with ${response.status}: ${errorDetails}`,
-      );
+      throw new Error(`Proxy call failed with status: ${response.status}`);
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Critical error in getBooks:", error);
-    throw error;
+    console.error("Critical error in getBooks service:", error);
+    return [];
   }
 };

@@ -1,22 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getBooks } from "../../services/bookServices";
+import Link from "next/link";
 
 export default function ForYouPage() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Declare timeoutId in the effect scope so it can be cleared
     let timeoutId;
 
     async function loadBooks() {
       setLoading(true);
       try {
-        // Example: If getBooks supports a timeout, pass it, or handle it manually
         const data = await getBooks();
         console.log(data);
-        // Ensure we are setting an array
         setBooks(Array.isArray(data) ? data : data?.data || []);
       } catch (error) {
         console.error("Failed to load books", error);
@@ -27,7 +25,6 @@ export default function ForYouPage() {
 
     loadBooks();
 
-    // Cleanup function
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
@@ -43,7 +40,8 @@ export default function ForYouPage() {
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {books.map((book) => (
-          <div
+          <Link
+            href={`/books/${book.id}`}
             key={book.id}
             className="flex flex-col border border-gray-200 rounded-lg p-4 hover:shadow-lg transition cursor-pointer"
           >
@@ -55,7 +53,7 @@ export default function ForYouPage() {
             <h3 className="font-bold text-lg mb-1">{book.title}</h3>
             <p className="text-gray-600 mb-2">{book.author}</p>
             <p className="text-sm text-gray-400 mt-auto">{book.subTitle}</p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -8,7 +8,6 @@ export default function AuthModal({ closeModal }) {
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
       <div className="bg-white p-8 rounded-xl w-[400px] relative shadow-2xl">
-        {/* Close Button - Calls the prop function */}
         <button
           onClick={(e) => {
             e.stopPropagation();

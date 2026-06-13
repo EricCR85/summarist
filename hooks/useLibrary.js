@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
-import { db, auth } from "../firebase"; // This looks for firebase.js in your root
+import { db, auth } from "../firebase"; 
 
 export const useLibrary = () => {
   const [library, setLibrary] = useState([]);

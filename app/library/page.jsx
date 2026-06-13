@@ -5,7 +5,6 @@ import { useLibrary } from "../../hooks/useLibrary";
 export default function LibraryPage() {
   const { library, loading } = useLibrary();
 
-  // 1. Loading State
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -14,7 +13,6 @@ export default function LibraryPage() {
     );
   }
 
-  // 2. Empty State
   if (library.length === 0) {
     return (
       <div className="p-10 text-center">
@@ -26,7 +24,6 @@ export default function LibraryPage() {
     );
   }
 
-  // 3. Library Grid View
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-8">My Library</h1>

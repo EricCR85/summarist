@@ -15,7 +15,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="m-0 p-0">
-        {/* The Modal Overlay - Shown when isAuthModalOpen is true */}
         {isAuthModalOpen && (
           <AuthModal closeModal={() => setIsAuthModalOpen(false)} />
         )}
@@ -28,7 +27,6 @@ export default function RootLayout({ children }) {
           )}
 
           <main style={{ flex: 1, padding: "20px" }}>
-            {/* Example: A button to test opening the modal */}
             <button
               onClick={() => setIsAuthModalOpen(true)}
               className="bg-green-500 text-white px-4 py-2 mb-4 rounded"

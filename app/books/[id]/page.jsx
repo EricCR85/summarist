@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { db, auth } from "../../../firebase"; // Ensure this path correctly points to your firebase.js
+import { db, auth } from "../../../firebase"; 
 import { collection, addDoc } from "firebase/firestore";
 
 export default function BookDetails() {
@@ -28,7 +28,6 @@ export default function BookDetails() {
     if (!auth.currentUser) return alert("Please log in to save books!");
 
     try {
-      // Writing to the same "library" collection your hook uses
       await addDoc(collection(db, "library"), {
         userId: auth.currentUser.uid,
         title: book.title,
@@ -54,7 +53,7 @@ export default function BookDetails() {
 
       <button
         onClick={addToLibrary}
-        className="mt-6 bg-red-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 trasition"
+        className="mt-6 bg-red-600 text-black px-6 py-2 rounded-lg font-bold hover:bg-blue-700 trasition"
       >
         Add to Library
       </button>
