@@ -12,7 +12,7 @@ export async function GET(request) {
   }
 
   try {
-    const externalApiUrl = `https://us-central1-summarist.cloudfunctions.net/getBooksByAuthorOrTitle?search=${encodeURIComponent(query)}`;
+    const externalApiUrl = `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${encodeURIComponent(query)}`;
 
     const response = await fetch(externalApiUrl);
 
