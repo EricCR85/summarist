@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { getBooks } from "../../services/bookServices";
 import Link from "next/link";
 
-export default function ForYouPage() {
+export default function ForYouPage(url) {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let timeoutId;
 
-    async function loadBooks() {
+    async function loadBooks(url) {
       setLoading(true);
       try {
-        const data = await getBooks();
+        const data = await getBooks(url);
         console.log(data);
         setBooks(Array.isArray(data) ? data : data?.data || []);
       } catch (error) {
@@ -23,7 +23,7 @@ export default function ForYouPage() {
       }
     }
 
-    loadBooks();
+    loadBooks(url);
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);

@@ -5,9 +5,9 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url, "http://localhost");
     const query = searchParams.get("search");
 
-    const searchUrl = `https://us-central1-summarist.cloudfunctions.net/getBooksByAuthorOrTitle?search=${encodeURIComponent(query || "")}`;
+    const searchUrl = `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${encodeURIComponent(query || "")}`;
     const defaultUrl =
-      "https://us-central1-summarist.cloudfunctions.net/getBooks?status=recommended";
+      "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended";
 
     const targetUrl = query ? searchUrl : defaultUrl;
 

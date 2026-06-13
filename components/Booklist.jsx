@@ -3,16 +3,16 @@
 import { useEffect, useState } from "react";
 import { getBooks } from "../services/bookServices";
 
-export default function BookList() {
+export default function BookList(url) {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadBooks() {
+    async function loadBooks(url) {
       try {
         setLoading(true); 
-        const data = await getBooks(); 
+        const data = await getBooks(url); 
         setBooks(data); 
         setError(null); 
       } catch (err) {
@@ -21,7 +21,7 @@ export default function BookList() {
         setLoading(false); 
       }
     }
-    loadBooks();
+    loadBooks(url);
   }, []); 
 
   if (loading) return <div>Loading your books...</div>;
