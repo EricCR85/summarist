@@ -10,10 +10,10 @@ export default function ForYouPage(url) {
   useEffect(() => {
     let timeoutId;
 
-    async function loadBooks(url) {
+    async function loadBooks() {
       setLoading(true);
       try {
-        const data = await getBooks(url);
+        const data = await getBooks("/api/books");
         console.log(data);
         setBooks(Array.isArray(data) ? data : data?.data || []);
       } catch (error) {
@@ -23,7 +23,7 @@ export default function ForYouPage(url) {
       }
     }
 
-    loadBooks(url);
+    loadBooks();
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);

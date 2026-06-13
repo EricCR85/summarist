@@ -9,10 +9,10 @@ export default function BookList(url) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadBooks(url) {
+    async function loadBooks() {
       try {
         setLoading(true); 
-        const data = await getBooks(url); 
+        const data = await getBooks("/api/books"); 
         setBooks(data); 
         setError(null); 
       } catch (err) {
@@ -21,7 +21,7 @@ export default function BookList(url) {
         setLoading(false); 
       }
     }
-    loadBooks(url);
+    loadBooks();
   }, []); 
 
   if (loading) return <div>Loading your books...</div>;
