@@ -1,66 +1,74 @@
 "use client";
-
 import React from "react";
 import Link from "next/link";
 import {
   AiOutlineHome,
-  AiOutlineFileSearch,
-  AiOutlineSetting,
-  AiOutlineInfoCircle,
-  AiOutlineLogin,
-  AiOutlineLogout,
   AiOutlineBook,
+  AiOutlineHighlight,
+  AiOutlineSearch,
+  AiOutlineSetting,
+  AiOutlineQuestionCircle,
+  AiOutlineLogin,
 } from "react-icons/ai";
 
 export default function Sidebar() {
-  const isLoggedIn = false;
-
-  const handleLogout = () => {
-    console.log("Logged out");
-  };
-
-  const openAuthModal = () => {
-    console.log("Open Auth Modal");
-  };
-
   return (
-    <div className="w-64 h-screen border-r p-6 sticky top-0 bg-gray-50 flex flex-col justify-between">
-      <figure className="mb-16">
-        <img src="/assets/logo.png" alt="Summarist Logo"  className="w-32" />
-      </figure>
-      <nav className="flex flex-col gap-6 flex-grow py-10">
-        <Link href="/for-you" className="flex items-center gap-3 font-medium text-gray-700 hover:text-black transition-colors">
-          <AiOutlineHome size={20} /> For you
-        </Link>
-        <Link href="/library" className="flex items-center gap-3 font-medium text-gray-700 hover:text-black transition-colors">
-          <AiOutlineBook size={20} /> Library
-        </Link>
-
-        <div className="flex items-center gap-3 cursor-not-allowed opacity-50">
-          <AiOutlineFileSearch size={20} /> Highlights
-        </div>
-        <div className="flex items-center gap-3 cursor-not-allowed opacity-50">
-          <AiOutlineFileSearch size={20} /> Search
+    <aside className="w-64 min-h-screen h-screen bg-white border-r border-gray-200 p-6 flex flex-col justify-between sticky top-0">
+      <div>
+        <div className="mb-10">
+          <img src="assets/logo.png" alt="Summarist Logo" className="w-32" />
         </div>
 
-        <Link href="/settings" className="flex items-center gap-3">
-          <AiOutlineSetting size={20} /> Settings
-        </Link>
-        <div className="flex items-center gap-3 cursor-not-allowed opacity-50">
-          <AiOutlineInfoCircle size={20} /> Help & Support
-        </div>
+        <nav className="flex flex-col gap-6 mt-10">
+          <SidebarLink
+            href="/for-you"
+            icon={<AiOutlineHome />}
+            label="For you"
+          />
+          <SidebarLink
+            href="/library"
+            icon={<AiOutlineBook />}
+            label="My Library"
+          />
+          <SidebarLink
+            href="/highlights"
+            icon={<AiOutlineHighlight />}
+            label="Highlights"
+          />
+          <SidebarLink
+            href="/search"
+            icon={<AiOutlineSearch />}
+            label="Search"
+          />
+        </nav>
+      </div>
 
-        {isLoggedIn ? (
-          <button onClick={handleLogout} className="flex items-center gap-3 font-medium text-gray-700 hover:text-black transition-colors">
-            <AiOutlineLogout size={20} /> Logout
-          </button>
-        ) : (
-          <button onClick={openAuthModal} className="flex items-center gap-3 font-medium text-gray-700 haver:text-black transition-colors">
-            <AiOutlineLogin size={20} /> Login
-          </button>
-        )}
+      <nav className="flex flex-col gap-6 border-t pt-6">
+        <SidebarLink
+          href="/settings"
+          icon={<AiOutlineSetting />}
+          label="Settings"
+        />
+        <SidebarLink
+          href="/help"
+          icon={<AiOutlineQuestionCircle />}
+          label="Help & Support"
+        />
+        <SidebarLink href="/login" icon={<AiOutlineLogin />} label="Login" />
       </nav>
-    </div>
+    </aside>
+  );
+}
+
+function SidebarLink({ href, icon, label }) {
+  return (
+    <Link
+      href={href}
+      className="flex items-center gap-4 text-gray-600 hover:text-black transition"
+    >
+      <span className="text-xl">{icon}</span>
+      <span className="font-medium">{label}</span>
+    </Link>
   );
 }
 

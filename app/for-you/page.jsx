@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { getBooks } from "../../services/bookServices";
 import Link from "next/link";
 import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
+import SearchBar from "../../components/SearchBar";
 
 export default function ForYouPage() {
   const [selectedBook, setSelectedBook] = useState(null);
@@ -35,6 +36,11 @@ export default function ForYouPage() {
 
   return (
     <div className="bg-white min-h-screen p-8">
+      <div className="flex justify-end mb-8">
+        <div className="w-full max-w-md">
+        </div>
+      </div>
+
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">Selected just for you</h2>
         {selectedBook && (
@@ -60,7 +66,7 @@ export default function ForYouPage() {
                   <span className="bg-black text-white rounded-full p-1 text-[10px]">
                     ▶
                   </span>
-                  {selectedBook.duration || "3 mins 23 secs"}
+                  {"3 mins 23 secs"}
                 </div>
               </div>
             </div>
@@ -72,7 +78,7 @@ export default function ForYouPage() {
         <h2 className="text-2xl font-bold">Recommended For You</h2>
         <p className="text-gray-500 mb-6">We think you’ll like these</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
-          {recommended.map((book) => (
+          {recommended.slice(0, 5).map((book) => (
             <BookCard key={book.id} book={book} />
           ))}
         </div>
@@ -82,7 +88,7 @@ export default function ForYouPage() {
         <h2 className="text-2xl font-bold">Suggested Books</h2>
         <p className="text-gray-500 mb-6">Browse those books</p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
-          {suggested.map((book) => (
+          {suggested.slice(0, 5).map((book) => (
             <BookCard key={book.id} book={book} />
           ))}
         </div>
@@ -110,16 +116,18 @@ function BookCard({ book }) {
           </div>
         )}
       </div>
-      <h4 className="font-bold text-md leading-tight">{book.title}</h4>
+      <h4 className="font-bold text-md leading-tight truncate">{book.title}</h4>
       <p className="text-sm text-gray-500">{book.author}</p>
-      <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+      <p className="text-[11px] text-gray-400 mt-1 line-clamp-2 leading-tight">
+        {book.subTitle}
+      </p>
+
+      <div className="flex items-center gap-1 text-xs text-gray-400 mt-2">
         <AiOutlineClockCircle />
-        <span>{book.duration || "0:00"}</span>
+        <span>04:30</span>
         <AiOutlineStar className="ml-2 text-yellow-500" />
-        <span>{book.rating || "0.0"}</span>
+        <span>4.3</span>
       </div>
     </Link>
   );
 }
-
-
