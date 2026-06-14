@@ -25,9 +25,9 @@ export default function Home() {
       <section id="landing">
         <div className="container">
           <div className="row">
+        <div className="landing_wrapper">
             <div className="landing_content">
               <div className="landing_content__title">
-        <div className="landing_wrapper">
                 Gain more knowledge <br className="remove--tablet" /> in less
                 time
               </div>

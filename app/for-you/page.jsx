@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { getBooks } from "../../services/bookServices";
 import Link from "next/link";
@@ -35,92 +34,84 @@ export default function ForYouPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen p-8">
-      <div className="max-w-6xl mx-auto">
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Selected Book For You</h2>
-          {selectedBook && (
-            <Link
-              href={`/books/${selectedBook.id}`}
-              className="flex gap-8 border p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition"
-            >
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">Selected just for you</h2>
+        {selectedBook && (
+          <Link
+            href={`/books/${selectedBook.id}`}
+            className="flex bg-[#FDF5E6] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
+          >
+            <div className="w-1/2 p-8 flex flex-col justify-center">
+              <p className="text-gray-700 text-lg font-medium">
+                {selectedBook.subTitle}
+              </p>
+            </div>
+            <div className="w-1/2 bg-[#F1EAD7] p-6 flex items-center gap-6">
               <img
                 src={selectedBook.imageLink}
                 alt={selectedBook.title}
-                className="w-40 h-60 object-cover rounded-lg shadow-md"
+                className="w-24 h-36 object-cover shadow-lg"
               />
-              <div className="flex flex-col justify-center">
-                <h3 className="text-3xl font-bold mb-2">
-                  {selectedBook.title}
-                </h3>
-                <p className="text-xl text-gray-600 mb-4">
-                  {selectedBook.author}
-                </p>
-                <div className="w-16 h-1 bg-yellow-500 mb-4"></div>
-                <p className="text-gray-500 max-w-lg">
-                  {selectedBook.subTitle}
-                </p>
+              <div className="flex flex-col">
+                <h3 className="text-2xl font-bold">{selectedBook.title}</h3>
+                <p className="text-gray-600 mb-2">{selectedBook.author}</p>
+                <div className="flex items-center text-gray-500 text-sm gap-2">
+                  <span className="bg-black text-white rounded-full p-1 text-[10px]">
+                    ▶
+                  </span>
+                  {selectedBook.duration || "3 mins 23 secs"}
+                </div>
               </div>
-            </Link>
-          )}
-        </section>
+            </div>
+          </Link>
+        )}
+      </section>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Recommended For You</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
-            {recommended.map((book) => (
-              <Link
-                key={book.id}
-                href={`/books/${book.id}`}
-                className="bg-white p-4 rounded-xl shadow-sm hover:shadow-lg transition"
-              >
-                <div className="relative aspect-[2/3] mb-4 overflow-hidden rounded-lg">
-                  <img
-                    src={book.imageLink}
-                    alt={book.title}
-                    className="w-full h-full object-cover"
-                  />
-                  {book.subscriptionRequired && (
-                    <span className="absolute top-2 left-2 bg-yellow-400 text-black text-[10px] px-2 py-1 rounded font-black uppercase">
-                      Premium
-                    </span>
-                  )}
-                </div>
-                <h4 className="font-bold text-lg leading-tight truncate">
-                  {book.title}
-                </h4>
-                <p className="text-sm text-gray-500 mt-1">{book.author}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">Recommended For You</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+          {recommended.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
+      </section>
 
-        <section>
-          <h2 className="text-2xl font-bold mb-6">Suggested For You</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
-            {suggested.map((book) => (
-              <Link
-                key={book.id}
-                href={`/books/${book.id}`}
-                className="bg-white p-4 rounded-xl shadow-sm hover:shadow-lg transition"
-              >
-                <div className="aspect-[2/3] mb-4 overflow-hidden rounded-lg">
-                  <img
-                    src={book.imageLink}
-                    alt={book.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h4 className="font-bold text-lg leading-tight truncate">
-                  {book.title}
-                </h4>
-                <p className="text-sm text-gray-500 mt-1">{book.author}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-      </div>
+      <section className="mb-12">
+        <h2 className="text-2xl font-bold mb-6">Suggested For You</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+          {suggested.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
 
+function BookCard({ book }) {
+  return (
+    <Link
+      href={`/books/${book.id}`}
+      className="bg-white p-4 rounded-xl shadow-sm hover:shadow-lg transition flex flex-col"
+    >
+      <div className="relative aspect-[2/3] mb-4 overflow-hidden rounded-lg">
+        <img
+          src={book.imageLink}
+          alt={book.title}
+          className="w-full h-full object-cover"
+        />
+        {book.subscriptionRequired && (
+          <span className="absolute top-2 left-2 bg-yellow-400 text-black text-[10px] px-2 py-1 rounded font-bold">
+            Premium
+          </span>
+        )}
+      </div>
+      <h4 className="font-bold text-md leading-tight truncate">{book.title}</h4>
+      <p className="text-sm text-gray-500 mt-1">{book.author}</p>
+      <p className="text-[11px] text-gray-400 mt-2 line-clamp-3 leading-tight">
+        {book.subTitle}
+      </p>
+    </Link>
+  );
+}
 
