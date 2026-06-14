@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="m-0 p-0">
         {isAuthModalOpen && (
-          <AuthModal closeModal={() => setIsAuthModalOpen(false)} />
+          <AuthModal closeModal={() => setIsAuthModalOpen(false)}  />
         )}
 
         <div style={{ display: "flex", minHeight: "100vh" }}>
@@ -27,12 +27,12 @@ export default function RootLayout({ children }) {
           )}
 
           <main style={{ flex: 1, padding: "20px" }}>
-            <button
+            {/* <button
               onClick={() => setIsAuthModalOpen(true)}
               className="bg-green-500 text-white px-4 py-2 mb-4 rounded"
             >
               Test Login Modal
-            </button>
+            </button> */}
 
             {!hideComponents && <SearchBar />}
             {children}

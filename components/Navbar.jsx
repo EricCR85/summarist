@@ -25,9 +25,9 @@ const [showModal, setShowModal] = useState(false);
           <li className="nav__list nav__list--mobile">Contact</li>
           <li className="nav__list nav__list--mobile">Help</li>
         </ul>
-        <button onClick={() =>  setShowModal(true)}>Log in</button>
+        {/* <button onClick={() =>  setShowModal(true)}>Log in</button> */}
       </div>
-      {showModal && <AuthModal toggleModal={() => setShowModal(false)} />}
+      {showModal && <AuthModal isOpen={showModal} onClose={() => setShowModal(false)} />}
     </nav>
   );
 }

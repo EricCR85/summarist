@@ -1,3 +1,5 @@
+
+
 "use client";
 import { useState } from "react";
 import Image from "next/image";
@@ -9,8 +11,6 @@ import Footer from "../components/Footer";
 // import BookList from "../components/BookList";
 import AuthModal from "../components/AuthModal";
 
-
-
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,7 +21,7 @@ export default function Home() {
     <>
       <Navbar onLoginClick={openModal} />
 
-      {isModalOpen && <AuthModal onClose={closeModal} />}
+      {isModalOpen && <AuthModal isOpen={isModalOpen} onClose={closeModal}/>}
 
       <section id="landing">
         <div className="container">
