@@ -1,52 +1,81 @@
 "use client";
-import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
 
-export default function AuthModal({ closeModal }) {
-  const [isLogin, setIsLogin] = useState(true);
+import React, { useState } from "react";
+import { AiOutlineClose, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
+
+export default function AuthModal({ isOpen, onClose }) {
+  const [isRegister, setIsRegister] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isRegister) {
+      console.log("Registering with:", email, password);
+    } else {
+      console.log("Logging in with:", email, password);
+    }
+    onClose(); 
+  };
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-      <div className="bg-white p-8 rounded-xl w-[400px] relative shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-sm relative">
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            closeModal();
-          }}
-          className="absolute top-4 right-4 text-2xl hover:text-red-500"
+          onClick={onClose}
+          className="absolute top-4 right-4 text-2xl text-gray-500 hover:text-black"
+          aria-label="Close modal"
         >
-          <AiOutlineClose className="pointer-events-none" />
+          <AiOutlineClose />
         </button>
 
         <h2 className="text-2xl font-bold mb-6 text-center">
-          {isLogin ? "Log in to Summarist" : "Sign up to Summarist"}
+          {isRegister ? "Sign Up" : "Log In"}
         </h2>
 
-        <input
-          type="email"
-          placeholder="Email Address"
-          className="w-full border-2 border-gray-300 p-3 mb-4 rounded"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border-2 border-gray-300 p-3 mb-6 rounded"
-        />
-
-        <button className="w-full bg-blue-600 text-white py-3 rounded font-bold hover:bg-blue-700">
-          {isLogin ? "Login" : "Sign up"}
-        </button>
-
-        <p className="mt-6 text-center">
-          {isLogin ? "Don't have an account? " : "Already have an account? "}
-          <span
-            className="text-blue-600 font-bold cursor-pointer hover:underline"
-            onClick={() => setIsLogin(!isLogin)}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="flex items-center border p-2 rounded focus-within:border-blue-500">
+            <AiOutlineMail className="mr-2 text-gray-400" />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full outline-none"
+              required
+            />
+          </div>
+          <div className="flex items-center border p-2 rounded focus-within:border-blue-500">
+            <AiOutlineLock className="mr-2 text-gray-400" />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full outline-none"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700 transition"
           >
-            {isLogin ? "Sign up" : "Log in"}
-          </span>
-        </p>
+            {isRegister ? "Register" : "Log In"}
+          </button>
+        </form>
+
+        <button
+          onClick={() => setIsRegister(!isRegister)}
+          className="mt-4 text-sm text-blue-500 w-full hover:underline"
+        >
+          {isRegister
+            ? "Already have an account? Log In"
+            : "Need an account? Sign Up"}
+        </button>
       </div>
     </div>
   );
 }
+
