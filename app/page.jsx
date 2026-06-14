@@ -41,7 +41,6 @@ export default function Home() {
       <section id="books">
         <div className="container">
           <div className="row">
-            <BookList />
           </div>
         </div>
       </section>

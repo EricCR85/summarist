@@ -44,7 +44,7 @@ export default function ForYouPage() {
               className="flex gap-8 border p-8 rounded-2xl bg-white shadow-sm hover:shadow-md transition"
             >
               <img
-                src={selectedBook.image}
+                src={selectedBook.imageLink}
                 alt={selectedBook.title}
                 className="w-40 h-60 object-cover rounded-lg shadow-md"
               />
@@ -105,7 +105,7 @@ export default function ForYouPage() {
               >
                 <div className="aspect-[2/3] mb-4 overflow-hidden rounded-lg">
                   <img
-                    src={book.image}
+                    src={book.imageLink}
                     alt={book.title}
                     className="w-full h-full object-cover"
                   />

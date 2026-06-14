@@ -1,5 +1,4 @@
 export async function getBooks(url) {
-  console.log(selectedBook)
   console.log("attempting to fetch from exaclty this URL path:", url);
   try {
     const response = await fetch(url);

@@ -2,12 +2,12 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
   try {
-    const { searchParams } = new URL(request.url, "http://localhost");
+    const { searchParams } = new URL(request.url,)
     const query = searchParams.get("search");
+    const status = searchParams.get("status") || "recommended";
 
-    const searchUrl = `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${encodeURIComponent(query || "")}`;
-    const defaultUrl =
-      "https://us-central1-summaristt.cloudfunctions.net/getBooks?status=recommended";
+    const searchUrl = `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${encodeURIComponent(query)}`;
+    const defaultUrl = `https://us-central1-summaristt.cloudfunctions.net/getBooks?status=${status}`;
 
     const targetUrl = query ? searchUrl : defaultUrl;
 
@@ -15,11 +15,13 @@ export async function GET(request) {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "External API error" },
+        {
+          error: "External API error",
+          status: response.status,
+        },
         { status: response.status },
       );
     }
-
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
@@ -30,3 +32,5 @@ export async function GET(request) {
     );
   }
 }
+
+
