@@ -75,7 +75,7 @@ export default function ForYouPage() {
               >
                 <div className="relative aspect-[2/3] mb-4 overflow-hidden rounded-lg">
                   <img
-                    src={book.image}
+                    src={book.imageLink}
                     alt={book.title}
                     className="w-full h-full object-cover"
                   />
