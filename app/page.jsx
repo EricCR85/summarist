@@ -8,7 +8,6 @@ import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { RiLeafLine } from "react-icons/ri";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-// import BookList from "../components/BookList";
 import AuthModal from "../components/AuthModal";
 
 export default function Home() {
@@ -27,24 +26,26 @@ export default function Home() {
         <div className="container">
           <div className="row">
             <div className="landing_content">
-              <div className="landing_content_title">
+              <div className="landing_content__title">
+        <div className="landing_wrapper">
                 Gain more knowledge <br className="remove--tablet" /> in less
                 time
               </div>
-              <div className="landing_content_subtitle">
+              <div className="landing_content__subtitle">
                 Great summaries for busy people,{" "}
                 <br className="remove--tablet" />
                 individuals who barely have time to read,{" "}
                 <br className="remove--tablet" />
                 and even people who don't like to read.
               </div>
-              <button className="btn home_cta--btn" onClick={openModal}>
+              <button className="btn home__cta--btn" onClick={openModal}>
                 Login
               </button>
             </div>
             <figure className="landing_image--mask">
-              <img src="/assets/login.png" alt="landing" />
+              <img src="/assets/landing.png" alt="landing" />
             </figure>
+          </div>
           </div>
         </div>
       </section>
@@ -215,7 +216,7 @@ export default function Home() {
               </div>
             </div>
             <div className="reviews__btn--wrapper">
-              <button className="btn home__cta--btn">Login</button>
+              <button className="btn home__cta--btn"onClick={openModal}>Login</button>
             </div>
           </div>
         </div>

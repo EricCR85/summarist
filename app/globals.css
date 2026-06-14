@@ -136,34 +136,34 @@ button:disabled {
 }
 
 /* LANDING */
-.landing__wrapper {
+.landing_wrapper {
   display: flex;
 }
 
-.landing__content {
+.landing_content {
   width: 100%;
 }
 
-.landing__image--mask {
+.landing_image--mask {
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
 
-.landing__image--mask img {
+.landing_image--mask img {
   width: 100%;
   height: 100%;
   max-width: 400px;
 }
 
-.landing__content__title {
+.landing_content__title {
   color: #032b41;
   font-size: 40px;
   font-weight: bold;
   margin-bottom: 24px;
 }
 
-.landing__content__subtitle {
+.landing_content__subtitle {
   color: #394547;
   font-size: 20px;
   font-weight: 300;
