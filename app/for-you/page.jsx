@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { getBooks } from "../../services/bookServices";
 import Link from "next/link";
+import { AiOutlineClockCircle, AiOutlineStar } from "react-icons/ai";
 
 export default function ForYouPage() {
   const [selectedBook, setSelectedBook] = useState(null);
@@ -33,20 +34,20 @@ export default function ForYouPage() {
     return <div className="p-10 text-center text-gray-500">Loading...</div>;
 
   return (
-    <div className="bg-gray-50 min-h-screen p-8">
+    <div className="bg-white min-h-screen p-8">
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">Selected just for you</h2>
         {selectedBook && (
           <Link
             href={`/books/${selectedBook.id}`}
-            className="flex bg-[#FDF5E6] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition"
+            className="flex bg-[#FDF5E6] rounded-lg overflow-hidden shadow-sm hover:shadow-md transition p-8 gap-8"
           >
-            <div className="w-1/2 p-8 flex flex-col justify-center">
+            <div className="w-1/2 flex flex-col justify-center">
               <p className="text-gray-700 text-lg font-medium">
                 {selectedBook.subTitle}
               </p>
             </div>
-            <div className="w-1/2 bg-[#F1EAD7] p-6 flex items-center gap-6">
+            <div className="w-1/2 flex items-center gap-6">
               <img
                 src={selectedBook.imageLink}
                 alt={selectedBook.title}
@@ -68,8 +69,9 @@ export default function ForYouPage() {
       </section>
 
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Recommended For You</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+        <h2 className="text-2xl font-bold">Recommended For You</h2>
+        <p className="text-gray-500 mb-6">We think you’ll like these</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
           {recommended.map((book) => (
             <BookCard key={book.id} book={book} />
           ))}
@@ -77,8 +79,9 @@ export default function ForYouPage() {
       </section>
 
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Suggested For You</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+        <h2 className="text-2xl font-bold">Suggested Books</h2>
+        <p className="text-gray-500 mb-6">Browse those books</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
           {suggested.map((book) => (
             <BookCard key={book.id} book={book} />
           ))}
@@ -90,28 +93,33 @@ export default function ForYouPage() {
 
 function BookCard({ book }) {
   return (
-    <Link
-      href={`/books/${book.id}`}
-      className="bg-white p-4 rounded-xl shadow-sm hover:shadow-lg transition flex flex-col"
-    >
-      <div className="relative aspect-[2/3] mb-4 overflow-hidden rounded-lg">
-        <img
-          src={book.imageLink}
-          alt={book.title}
-          className="w-full h-full object-cover"
-        />
+    <Link href={`/books/${book.id}`} className="group block">
+      <div className="relative mb-3">
+        <div className="aspect-[2/3] overflow-hidden rounded-lg">
+          <img
+            src={book.imageLink}
+            alt={book.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
         {book.subscriptionRequired && (
-          <span className="absolute top-2 left-2 bg-yellow-400 text-black text-[10px] px-2 py-1 rounded font-bold">
-            Premium
-          </span>
+          <div className="mt-2">
+            <span className="bg-[#2D2D2D] text-white text-[10px] px-2 py-0.5 rounded font-bold">
+              Premium
+            </span>
+          </div>
         )}
       </div>
-      <h4 className="font-bold text-md leading-tight truncate">{book.title}</h4>
-      <p className="text-sm text-gray-500 mt-1">{book.author}</p>
-      <p className="text-[11px] text-gray-400 mt-2 line-clamp-3 leading-tight">
-        {book.subTitle}
-      </p>
+      <h4 className="font-bold text-md leading-tight">{book.title}</h4>
+      <p className="text-sm text-gray-500">{book.author}</p>
+      <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+        <AiOutlineClockCircle />
+        <span>{book.duration || "0:00"}</span>
+        <AiOutlineStar className="ml-2 text-yellow-500" />
+        <span>{book.rating || "0.0"}</span>
+      </div>
     </Link>
   );
 }
+
 
