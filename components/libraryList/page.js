@@ -2,6 +2,7 @@
 import { useEffect, useStatee } from "react";
 import { db } from "@/lib/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
+import SearchBar from "../SearchBar";
 
 export default function LibraryList() {
   const [books, setBooks] = useState([]);

@@ -28,8 +28,8 @@ export default function RootLayout({ children }) {
 
           <main style={{ flex: 1, padding: "20px" }}>
        
-
-            {!hideComponents && <SearchBar />}
+              
+            
             {children}
           </main>
         </div>
