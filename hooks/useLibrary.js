@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db, auth } from "../firebase";
+import { addDoc, deleteDoc, doc } from "firebase/firestore";
 
 export const useLibrary = () => {
   const [library, setLibrary] = useState([]);
@@ -37,7 +38,8 @@ export const useLibrary = () => {
     }
   };
 
-  const removerFromLibrary = async (bookId) => {
+  const removeFromLibrary = async (bookId) => {
     await deleteDoc(doc(db, "library", bookId));
   };
+  return (library, loading, addToLibrary, removeFromLibrary)
 };
