@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useLibrary } from "../../../hooks/useLibrary";
+
 import { getBooks } from "../../../services/bookServices";
 import {
   AiOutlineStar,
@@ -16,6 +17,8 @@ export default function BookDetailsPage() {
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const { library, addToLibrary, removeFromLibrary } = useLibrary();
+
+  const savedBook = library?.find((b) => b.id === id || b.bookId === id);
 
   useEffect(() => {
     async function fetchBook() {
@@ -77,17 +80,19 @@ export default function BookDetailsPage() {
           </div>
 
           <button
-            onClick={() =>
-              savedBook
-                ? removeFromLibrary(savedBook.id)
-                : addToLibrary({ ...book, bookId: book.id })
+            onClick={() => {
+             if (!savedBook) {
+               addToLibrary({ ...book, bookId: book.id });
+              } else {
+               removeFromLibrary(savedBook.id);
             }
-            className="text-blue-600 font-semibold flex items-center gap-2"
+          }}
+            className={`${savedBook ? "text-green-600" : "text-blue-600"} font-semibold flex items-center gap-2`}
           >
-            className=
-            {`$savedBook ? "text-green-600" : "text-blue-600"} font-semibold flex items-center gap-2`}
-            <span className="text-xl">{savedBook ? "!" : "^"}</span>
-            {savedBook ? "Saved in my library" : "Add to My library"}
+            <span className="text-xl">
+              <AiOutlineStar /> :
+            </span>
+            {savedBook ? "Saved in my library" : "Add to my library"}
           </button>
         </div>
 

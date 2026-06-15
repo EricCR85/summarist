@@ -29,17 +29,20 @@ export const useLibrary = () => {
   }, []);
 
   const addToLibrary = async (book) => {
-    const user = auth.currentUser;
-    if (user) {
-      await addDoc(collection(db, "library"), {
-        ...book,
-        userId: user.uid,
-      });
+    if (!auth.currentUser) {
+      alert("please log in to add books.");
+      return;
     }
+    await addDoc(collection(db, "library"), {
+      ...book,
+      userId: auth.currentUser.uid,
+    });
   };
 
-  const removeFromLibrary = async (bookId) => {
-    await deleteDoc(doc(db, "library", bookId));
+  const removeFromLibrary = async (docId) => {
+    if (!auth.currentUser) return;
+    await deleteDoc(doc(db, "library", docId));
   };
-  return (library, loading, addToLibrary, removeFromLibrary)
+
+  return { library, addToLibrary, removeFromLibrary, loading };
 };
