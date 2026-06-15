@@ -1,8 +1,7 @@
-
-
 "use client";
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import { useLibrary } from "../../../hooks/useLibrary";
 import { getBooks } from "../../../services/bookServices";
 import {
   AiOutlineStar,
@@ -16,13 +15,18 @@ export default function BookDetailsPage() {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { library, addToLibrary, removeFromLibrary } = useLibrary();
 
   useEffect(() => {
     async function fetchBook() {
       setLoading(true);
       try {
-        const allBooks = await getBooks("/api/books");
-        const foundBook = allBooks.find((b) => b.id === id);
+        const books = await Promise.all(
+          ["selected", "recommended", "suggested"].map((status) =>
+            getBooks(`/api/books?status=${status}`),
+          ),
+        );
+        const foundBook = books.flat().find((book) => book.id === id);
         setBook(foundBook);
       } catch (error) {
         console.error("Error fetching book:", error);
@@ -72,8 +76,18 @@ export default function BookDetailsPage() {
             </button>
           </div>
 
-          <button className="text-blue-600 font-semibold flex items-center gap-2">
-            <span className="text-xl">🔖</span> Saved in My Library
+          <button
+            onClick={() =>
+              savedBook
+                ? removeFromLibrary(savedBook.id)
+                : addToLibrary({ ...book, bookId: book.id })
+            }
+            className="text-blue-600 font-semibold flex items-center gap-2"
+          >
+            className=
+            {`$savedBook ? "text-green-600" : "text-blue-600"} font-semibold flex items-center gap-2`}
+            <span className="text-xl">{savedBook ? "!" : "^"}</span>
+            {savedBook ? "Saved in my library" : "Add to My library"}
           </button>
         </div>
 
@@ -85,16 +99,15 @@ export default function BookDetailsPage() {
           />
         </div>
       </div>
-
       <div className="border-t pt-8">
         <h2 className="text-2xl font-bold mb-6">What's it about?</h2>
         <p className="text-gray-600 leading-relaxed mb-8">
-          {book.aboutBook || "No description provided."}
+          {book.bookDescription || "No description provided."}
         </p>
 
         <h3 className="text-2xl font-bold mb-6">About the author</h3>
         <p className="text-gray-600 leading-relaxed">
-          {book.aboutAuthor || "Author details not available."}
+          {book.authorDescription || "Author details not available."}
         </p>
       </div>
     </div>
