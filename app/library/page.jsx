@@ -39,23 +39,26 @@ export default function LibraryPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {library.map((book) => (
           <div
-            key={book.id}
-            className="border rounded-lg p-4 shadow-lg transition-all hover:shadow-xl"
+            key={book.id || book.bookId}
+            className="border p-4 rounded-lg shadow-sm hover:shadow-md transition"
           >
-            <Link href={`/books/${book.id}`}>
-              <img
-                src={book.coverImage}
-                alt={book.title}
-                className="w-full h-64 object-cover rounded-md mb-4"
-              />
-              <h3 className="font-semibold text-lg truncate">{book.title}</h3>
-              <p className="text-gray-600">{book.author}</p>
-            </Link>
+            <img
+              src={
+                book.imageLink ||
+                "https://via.placeholder.com/150?text=No+Image"
+              }
+              alt={book.title}
+              className="w-full h-48 object-cover mb-4 rounded"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://via.placeholder.com/150?text=No+Image";
+              }}
+            />
+            <h2 className="text-lg font-bold">{book.title}</h2>
+            <p className="text-sm text-gray-600">{book.author}</p>
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-
