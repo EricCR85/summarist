@@ -18,7 +18,7 @@ export default function BookDetailsPage() {
   const [loading, setLoading] = useState(true);
   const { library, addToLibrary, removeFromLibrary } = useLibrary();
 
-  const savedBook = library?.find((b) => b.id === id || b.bookId === id);
+  const savedBook = library?.find((b) => b.bookId === id);
 
   useEffect(() => {
     async function fetchBook() {
@@ -84,7 +84,7 @@ export default function BookDetailsPage() {
               if (savedBook) {
                 removeFromLibrary(savedBook.id);
               } else {
-                addToLibrary(book);
+                addToLibrary({ ...book, bookId: book.id });
               }
             }}
             className={`${savedBook ? "text-green-600" : "text-blue-600"} font-semibold flex items-center gap-2`}
