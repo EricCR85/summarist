@@ -1,13 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { AiOutlineClose, AiOutlineMail, AiOutlineLock } from "react-icons/ai";
 import {
   auth,
   googleProvider,
-  signInWithPopup,
   signInAnonymously,
-  sendPasswordResetEmail,
+  signInWithPopup,
 } from "../firebase";
 import {
   signInWithEmailAndPassword,
@@ -15,24 +12,18 @@ import {
 } from "firebase/auth";
 
 export default function AuthModal({ isOpen, onClose }) {
-  const router = useRouter();
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleGuestLogin = async () => {
     try {
-      if (isRegister) {
-        await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-      onClose();
+      await signInAnonymously(auth);
+      onClose(); 
     } catch (error) {
-      alert("Login/Register Error: " + error.message);
+      alert("Guest Login Error: " + error.message);
     }
   };
 
@@ -45,99 +36,131 @@ export default function AuthModal({ isOpen, onClose }) {
     }
   };
 
-  const handleGuestLogin = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await signInAnonymously(auth);
+      if (isRegister) {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+      }
       onClose();
-      router.push("/for-you");
     } catch (error) {
-      alert("Guest Login Error: " + error.message);
-    }
-  };
-
-  const handleForgotPassword = async () => {
-    if (!email) return alert("Please enter your email above first.");
-    try {
-      await sendPasswordResetEmail(auth, email);
-      alert("Password reset email sent to " + email);
-    } catch (error) {
-      alert("Reset Error: " + error.message);
+      alert("Auth Error: " + error.message);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-sm relative">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-2xl text-gray-500 hover:text-black"
-        >
-          <AiOutlineClose />
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "rgba(0,0,0,0.5)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 9999,
+      }}
+    >
+      <div
+        style={{
+          background: "white",
+          padding: "40px",
+          borderRadius: "10px",
+          width: "350px",
+          textAlign: "center",
+        }}
+      >
+        <button onClick={onClose} style={{ float: "right" }}>
+          Close
         </button>
 
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          {isRegister ? "Sign Up" : "Log In"}
-        </h2>
+        <h2>{isRegister ? "Sign Up" : "Log In"}</h2>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex items-center border p-2 rounded focus-within:border-blue-500">
-            <AiOutlineMail className="mr-2 text-gray-400" />
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full outline-none"
-              required
-            />
-          </div>
-          <div className="flex items-center border p-2 rounded focus-within:border-blue-500">
-            <AiOutlineLock className="mr-2 text-gray-400" />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full outline-none"
-              required
-            />
-          </div>
+        <button
+          onClick={handleGuestLogin}
+          style={{
+            display: "block",
+            width: "100%",
+            margin: "10px 0",
+            padding: "10px",
+            background: "#333",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+          }}
+        >
+          Continue as Guest
+        </button>
+
+        <button
+          onClick={handleGoogleLogin}
+          style={{
+            display: "block",
+            width: "100%",
+            margin: "10px 0",
+            padding: "10px",
+            background: "#4285F4",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+          }}
+        >
+          Login with Google
+        </button>
+
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            style={{
+              display: "block",
+              width: "100%",
+              margin: "10px 0",
+              padding: "8px",
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            style={{
+              display: "block",
+              width: "100%",
+              margin: "10px 0",
+              padding: "8px",
+            }}
+          />
           <button
             type="submit"
-            className="bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700"
+            style={{
+              width: "100%",
+              padding: "10px",
+              background: "green",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+            }}
           >
             {isRegister ? "Sign Up" : "Log In"}
           </button>
         </form>
 
-        <div className="mt-4 flex flex-col gap-2">
-          <button
-            onClick={handleGoogleLogin}
-            className="text-sm bg-red-500 text-white py-2 rounded"
-          >
-            Login with Google
-          </button>
-          <button
-            onClick={handleGuestLogin}
-            className="text-sm bg-gray-600 text-white py-2 rounded"
-          >
-            Continue as Guest
-          </button>
-          <button
-            onClick={handleForgotPassword}
-            className="text-sm text-blue-500 underline mt-2"
-          >
-            Forgot Password?
-          </button>
-        </div>
-
         <button
           onClick={() => setIsRegister(!isRegister)}
-          className="mt-4 w-full text-sm text-gray-600 hover:underline"
+          style={{
+            marginTop: "10px",
+            background: "none",
+            border: "none",
+            color: "blue",
+            textDecoration: "underline",
+          }}
         >
-          {isRegister
-            ? "Already have an account? Log In"
-            : "Need an account? Sign Up"}
+          {isRegister ? "Already have an account?" : "Need an account?"}
         </button>
       </div>
     </div>
