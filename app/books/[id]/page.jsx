@@ -81,10 +81,10 @@ export default function BookDetailsPage() {
 
           <button
             onClick={() => {
-              if (!savedBook) {
-                addToLibrary({ ...book, bookId: book.id });
-              } else {
+              if (savedBook) {
                 removeFromLibrary(savedBook.id);
+              } else {
+                addToLibrary(book);
               }
             }}
             className={`${savedBook ? "text-green-600" : "text-blue-600"} font-semibold flex items-center gap-2`}

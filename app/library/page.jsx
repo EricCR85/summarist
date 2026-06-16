@@ -19,9 +19,7 @@ export default function LibraryPage() {
     return (
       <div className="p-10 text-center">
         <h1 className="text-3xl font-bold mb-4">My Library</h1>
-        <p className="text-gray-500">
-          Your library is empty. Go find some books to add!
-        </p>
+        <p className="text-gray-500"></p>
       </div>
     );
   }
@@ -56,8 +54,10 @@ export default function LibraryPage() {
             />
             <h2 className="text-lg font-bold">{book.title}</h2>
             <p className="text-sm text-gray-600">{book.author}</p>
-            <button onClick={() => removeFromLibrary(book.id)}
-            className="mt-3 bg-red-500 text-white px-3 py-1 rounded">
+            <button
+              onClick={() => removeFromLibrary(book.id)}
+              className="mt-3 bg-red-500 text-white px-3 py-1 rounded"
+            >
               Remove
             </button>
           </div>
