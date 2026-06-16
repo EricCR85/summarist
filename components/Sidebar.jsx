@@ -16,7 +16,7 @@ export default function Sidebar() {
     <aside className="w-64 min-h-screen h-screen bg-white border-r border-gray-200 p-6 flex flex-col justify-between sticky top-0">
       <div>
         <div className="mb-10">
-          <img src="assets/logo.png" alt="Summarist Logo" className="w-32" />
+          <img src="/assets/logo.png" alt="Summarist Logo" className="w-32" />
         </div>
 
         <nav className="flex flex-col gap-6 mt-10">
