@@ -5,7 +5,7 @@ import SearchBar from "../../components/SearchBar";
 import Link from "next/link";
 
 export default function LibraryPage() {
-  const { library, loading } = useLibrary();
+  const { library, loading, removeFromLibrary } = useLibrary();
 
   if (loading) {
     return (
@@ -37,9 +37,9 @@ export default function LibraryPage() {
 
       <h1 className="text-3xl font-bold mb-8">My Library</h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {library.map((book) => (
+        {library.map((book, index) => (
           <div
-            key={book.id || book.bookId}
+            key={`${book.id || book.bookId}-${index}`}
             className="border p-4 rounded-lg shadow-sm hover:shadow-md transition"
           >
             <img
@@ -56,6 +56,10 @@ export default function LibraryPage() {
             />
             <h2 className="text-lg font-bold">{book.title}</h2>
             <p className="text-sm text-gray-600">{book.author}</p>
+            <button onClick={() => removeFromLibrary(book.id)}
+            className="mt-3 bg-red-500 text-white px-3 py-1 rounded">
+              Remove
+            </button>
           </div>
         ))}
       </div>

@@ -7,8 +7,6 @@ export const useLibrary = () => {
   const [library, setLibrary] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
-
   useEffect(() => {
     const user = auth.currentUser;
     if (!user) {
