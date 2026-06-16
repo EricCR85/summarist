@@ -7,6 +7,8 @@ export const useLibrary = () => {
   const [library, setLibrary] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
+
   useEffect(() => {
     const user = auth.currentUser;
     if (!user) {
@@ -46,5 +48,3 @@ export const useLibrary = () => {
 
   return { library, addToLibrary, removeFromLibrary, loading };
 };
-
-
