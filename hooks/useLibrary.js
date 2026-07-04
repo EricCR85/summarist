@@ -18,8 +18,8 @@ export const useLibrary = () => {
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const booksData = snapshot.docs.map((doc) => ({
-        id: doc.id,
         ...doc.data(),
+        id: doc.id,
       }));
       setLibrary(booksData);
       setLoading(false);
