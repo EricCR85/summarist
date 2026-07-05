@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useStatee } from "react";
+import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import SearchBar from "../SearchBar";
@@ -7,7 +7,6 @@ import Link from "next/link";
 
 export default function LibraryList() {
   const [books, setBooks] = useState([]);
-  const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
     const booksCollection = collection(db, "books");
@@ -31,7 +30,7 @@ export default function LibraryList() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {books.map((book) => (
           <Link href={`/books/${book.id}`} key={book.id}>
-            <div key={book.id} className="p-4 border rounded shadow">
+            <div key={book.id} className="p-4 border rounded shadow hover:shadow-lg transition-shadow cursor-pointer">
               <h3 className="font-semibold text-lg">{book.title}</h3>
               <p className="text-gray-600">Author: {book.author}</p>
             </div>
