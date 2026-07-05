@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   auth,
   googleProvider,
@@ -15,6 +16,7 @@ export default function AuthModal({ isOpen, onClose }) {
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   if (!isOpen) return null;
 
@@ -22,6 +24,7 @@ export default function AuthModal({ isOpen, onClose }) {
     try {
       await signInAnonymously(auth);
       onClose(); 
+      router.push("/for-you");
     } catch (error) {
       alert("Guest Login Error: " + error.message);
     }
@@ -31,6 +34,7 @@ export default function AuthModal({ isOpen, onClose }) {
     try {
       await signInWithPopup(auth, googleProvider);
       onClose();
+      router.push("/for-you");
     } catch (error) {
       alert("Google Login Error: " + error.message);
     }
