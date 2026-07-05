@@ -1,16 +1,24 @@
-import { useState } from "react";
+
+    import { useEffect, useState } from "react";
+import { onAuthStateChanged, signOut as firebaseSignOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 export function useAuth() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const signOut = () => {
-    setUser(null);
-  }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
 
- const login = () => {
-    setUser({ name: "User" });
-  }
+    return () => unsubscribe();
+  }, []);
 
-  return { user, signOut, login };
+  const signOut = async () => {
+    await firebaseSignOut(auth);
+  };
+
+  return { user, loading, signOut };
 }
-    
