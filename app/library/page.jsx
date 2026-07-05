@@ -36,6 +36,8 @@ export default function LibraryPage() {
       <h1 className="text-3xl font-bold mb-8">My Library</h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {library.map((book, index) => (
+          console.log(book),
+          <Link href={`/books/${book.id || book.bookId}`} key={book.id || book.bookId}>
           <div
             key={`${book.id || book.bookId}-${index}`}
             className="border p-4 rounded-lg shadow-sm hover:shadow-md transition"
@@ -61,6 +63,7 @@ export default function LibraryPage() {
               Remove
             </button>
           </div>
+          </Link>
         ))}
       </div>
     </div>
