@@ -35,36 +35,40 @@ export default function LibraryPage() {
 
       <h1 className="text-3xl font-bold mb-8">My Library</h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {library.map((book, index) => (
-          console.log(book),
-          <Link href={`/books/${book.id || book.bookId}`} key={book.id || book.bookId}>
-          <div
-            key={`${book.id || book.bookId}-${index}`}
-            className="border p-4 rounded-lg shadow-sm hover:shadow-md transition"
-          >
-            <img
-              src={
-                book.imageLink ||
-                "https://via.placeholder.com/150?text=No+Image"
-              }
-              alt={book.title}
-              className="w-full h-48 object-cover mb-4 rounded"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "https://via.placeholder.com/150?text=No+Image";
-              }}
-            />
-            <h2 className="text-lg font-bold">{book.title}</h2>
-            <p className="text-sm text-gray-600">{book.author}</p>
-            <button
-              onClick={() => removeFromLibrary(book.id)}
-              className="mt-3 bg-red-500 text-white px-3 py-1 rounded"
-            >
-              Remove
-            </button>
-          </div>
-          </Link>
-        ))}
+        {library.map(
+          (book, index) => (
+            console.log(book),
+            (
+              <Link
+                href={`/books/${book.id || book.bookId}`}
+                key={book.id}
+                className="block cursor-pointer hover:shadow-lg transition-shadow rounded-lg overflow-hidden border"
+              >
+                <img
+                  src={
+                    book.imageLink ||
+                    "https://via.placeholder.com/150?text=No+Image"
+                  }
+                  alt={book.title}
+                  className="w-full h-48 object-cover mb-4 rounded"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://via.placeholder.com/150?text=No+Image";
+                  }}
+                />
+                <h2 className="text-lg font-bold">{book.title}</h2>
+                <p className="text-sm text-gray-600">{book.author}</p>
+                <button
+                  onClick={() => removeFromLibrary(book.id)}
+                  className="mt-3 bg-red-500 text-white px-3 py-1 rounded"
+                >
+                  Remove
+                </button>
+              </Link>
+            )
+          ),
+        )}
       </div>
     </div>
   );
