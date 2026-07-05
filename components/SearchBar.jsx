@@ -61,9 +61,9 @@ export default function SearchBar() {
   };
 
   return (
-    <div ref={searchRef} className="relative w-full max-w-lg">
-      <div className="flex items-center gap-2 border-b pb-4 mb-6">
-        <AiOutlineSearch className="text-xl text-gray-500" />
+    <div ref={searchRef} className="relative w-full max-w-xs flex justify-end">
+      <div className="flex items-center border-b border-gray-300 py-2">
+        <AiOutlineSearch className="text-xl text-gray-400 mr-3" />
         <input
           type="text"
           placeholder="Search for books by title or author"
@@ -74,14 +74,14 @@ export default function SearchBar() {
           aria-expanded={results.length > 0}
           aria-controls="search-results-list"
           aria-autocomplete="list"
-          className="w-full outline-none text-lg bg-transparent"
+          className="w-full bg-transparent focus:outline-none text-lg text-gray-700 placeholder-gray-400"
         />
       </div>
 
-      {isLoading && <p className="text-gray-500 text-sm">Searching...</p>}
+      {isLoading && <p className="text-gray-500 text-sm mt-2">Searching...</p>}
 
       {!isLoading && results.length === 0 && query.length > 0 && (
-        <p className="text-gray-500 text-sm">No books found.</p>
+        <p className="text-gray-500 text-sm mt-2">No books found.</p>
       )}
 
       {results.length > 0 && (

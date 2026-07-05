@@ -3,6 +3,7 @@ import React from "react";
 import { useLibrary } from "../../hooks/useLibrary";
 import SearchBar from "../../components/SearchBar";
 import Link from "next/link";
+// import LibraryList from "../../components/libraryList/page";
 
 export default function LibraryPage() {
   const { library, loading, removeFromLibrary } = useLibrary();
@@ -25,7 +26,7 @@ export default function LibraryPage() {
   }
 
   return (
-    <div className="bg-white min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-white min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex justify-between items-center mb-10 border-b border-gray-100 pb-4">
         <h1 className="text-xl font-bold text-gray-800">For You</h1>
         <div className="w-full max-w-xs">
@@ -40,7 +41,7 @@ export default function LibraryPage() {
             console.log(book),
             (
               <Link
-                href={`/books/${book.id || book.bookId}`}
+                href={`/books/${book.bookId || book.id}`}
                 key={book.id}
                 className="block cursor-pointer hover:shadow-lg transition-shadow rounded-lg overflow-hidden border"
               >
@@ -70,6 +71,6 @@ export default function LibraryPage() {
           ),
         )}
       </div>
-    </div>
+      </div>
   );
 }
