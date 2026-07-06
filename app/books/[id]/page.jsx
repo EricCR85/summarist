@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useLibrary } from "../../../hooks/useLibrary";
@@ -78,16 +79,18 @@ export default function BookDetailsPage() {
           </div>
 
           <div className="flex gap-4 mb-6">
-            <button className="bg-[#032b41] text-white w-[150px] h-[48px] rounded flex items-center justify-center gap-2 font-semibold">
-              <AiOutlineRead /> Read
-            </button>
-
-            <button
-            onClick={() => setShowPlayer(true)} 
-            className="bg-[#032b41] text-white w-[150px] h-[48px] rounded flex items-center justify-center gap-2 font-semibold">
-              <AiOutlineAudio /> Listen
-            </button>
+            <Link href={`/books/${book.id}/read`}>
+              <button className="bg-[#032b41] text-white w-[150px] h-[48px] rounded flex items-center justify-center gap-2 font-semibold">
+                <AiOutlineRead /> Read
+              </button>
+            </Link>
+            <Link href={`/books/${book.id}/listen`}>
+              <button className="bg-[#032b41] text-white w-[150px] h-[48px] rounded flex items-center justify-center gap-2 font-semibold">
+                <AiOutlineAudio /> Listen
+              </button>
+            </Link>
           </div>
+
 
           <button
             onClick={() => {
@@ -98,7 +101,7 @@ export default function BookDetailsPage() {
               }
             }}
             className="text-blue-600 font-semibold flex items-center gap-2 mb-2"
-            >
+          >
             <AiOutlineStar />
             {savedBook ? "Saved in my library" : "Add title to My Library"}
           </button>
