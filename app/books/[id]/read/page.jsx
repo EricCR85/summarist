@@ -34,7 +34,7 @@ export default function ListenPage({ params }) {
   if (!book) return <div className="p-10 text-center">Book not found.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-10">
+    <div className="max-w-4xl mx-auto px-8 py-10 pb-32">
       <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
       <p className="text-gray-600 mb-8">{book.author}</p>
 
@@ -43,7 +43,7 @@ export default function ListenPage({ params }) {
         {book.summary || "No book text available."}
       </p>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-[#032b41] text-white p-4 flex items-center gap-4 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0  bg-[#032b41] text-white p-4 flex items-center gap-4 shadow-lg z-30">
         <img
           src={book.cover}
           alt={book.title}

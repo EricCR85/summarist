@@ -19,13 +19,13 @@ export default function Sidebar() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   return (
-    <aside className="w-64 min-h-screen h-screen bg-white border-r border-gray-200 p-6 flex flex-col sticky top-0 z-[10000]"
+    <aside className="w-64 min-h-screen h-screen bg-white border-r border-gray-200 p-6 flex flex-col sticky top-0 z-40"
     style={{ height: "100vh",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
     }}>
-      <div>
+      <div className="h-full w-64 bg-white">
         <div style={{ marginBottom: "48px" }}>
           <img src="/assets/logo.png" alt="Summarist Logo" className="w-32 " />
         </div>
