@@ -1,12 +1,10 @@
-  "use client";
-import { useState, useEffect } from "react";
-import { getBooks } from "../../../../services/bookServices";
-import { useParams } from "next/navigation";
+"use client";
+import React, { useState, useEffect, use } from "react";
 import ReactAudioPlayer from "react-audio-player";
+import { getBooks } from "../../../../services/bookServices";
 
-export default function ReadPage() {
-  const { id } = useParams();
-
+export default function ListenPage({ params }) {
+  const { id } = use(params);
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,10 +25,12 @@ export default function ReadPage() {
         setLoading(false);
       }
     }
+
     if (id) fetchBook();
   }, [id]);
 
-  if (loading) return <div className="p-10 text-center">Loading book...</div>;
+  if (loading)
+    return <div className="p-10 text-center">Loading book details...</div>;
   if (!book) return <div className="p-10 text-center">Book not found.</div>;
 
   return (
@@ -38,28 +38,27 @@ export default function ReadPage() {
       <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
       <p className="text-gray-600 mb-8">{book.author}</p>
 
-      <h2 className="text-2xl font-bold mb-4">Read Summary</h2>
-
+      <h2 className="text-2xl font-bold mb-4">Listen Summary</h2>
       <p className="text-gray-700 leading-8 mb-10">
         {book.summary || "No book text available."}
       </p>
 
-    <div className="fixed bottom-0 left-0 right-0 bg-[#032b41] text-white p-4 flex items-center gap-4">
-      <img src={book.cover} className="w-12 h-16 object-cover" />
-      <div>
-        <h4 className="font-bold">{book.title}</h4>
-        <p className="text-sm text-gray-300">{book.author}</p>
+      <div className="fixed bottom-0 left-0 right-0 bg-[#032b41] text-white p-4 flex items-center gap-4 shadow-lg">
+        <img
+          src={book.cover}
+          alt={book.title}
+          className="w-12 h-16 object-cover"
+        />
+        <div className="flex-1">
+          <h4 className="font-bold text-sm">{book.title}</h4>
+          <p className="text-xs text-gray-300">{book.author}</p>
+        </div>
+        <div className="w-full max-w-lg">
+          <ReactAudioPlayer src={book.audioLink} controls className="w-full" />
+        </div>
       </div>
-
-      <ReactAudioPlayer
-        src={book.audioLink}
-        controls
-        className="w-full"
-      />
-    </div>
     </div>
   );
 }
 
 
-      
