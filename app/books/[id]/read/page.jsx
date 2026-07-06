@@ -3,12 +3,15 @@ import React, { useState, useEffect, use } from "react";
 import { createPortal } from "react-dom";
 import ReactAudioPlayer from "react-audio-player";
 import { getBooks } from "../../../../services/bookServices";
+import { useFontSize } from "../../../../components/FontSizeContext";
+import SearchBar from "../../../../components/SearchBar";
 
 export default function ListenPage({ params }) {
   const { id } = use(params);
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const { fontSize } = useFontSize();
 
   useEffect(() => {
     setMounted(true); // document.body only exists client-side
@@ -56,7 +59,14 @@ export default function ListenPage({ params }) {
   );
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-10 pb-32">
+    <div className="max-w-4xl mx-auto px-8 py-10 pb-32" style={{ fontSize: `${fontSize}px` }}>
+      <div className="bg-white min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="flex justify-between items-center mb-10 border-b border-gray-100 pb-4">
+              <h1 className="text-xl font-bold text-gray-800">For You</h1>
+              <div className="w-full max-w-xs">
+                <SearchBar />
+              </div>
+            </div>
       <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
       <p className="text-gray-600 mb-8">{book.author}</p>
       <h2 className="text-2xl font-bold mb-4">Listen Summary</h2>
@@ -64,9 +74,11 @@ export default function ListenPage({ params }) {
         {book.summary || "No book text available."}
       </p>
       {mounted && createPortal(player, document.body)}
+      </div>
     </div>
   );
 }
+
 
 
 

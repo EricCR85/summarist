@@ -5,6 +5,8 @@ import Sidebar from "../components/Sidebar";
 import SearchBar from "../components/SearchBar";
 import AuthModal from "../components/AuthModal";
 import "./globals.css";
+import { FontSizeProvider } from "../components/FontSizeContext";
+import { UserProvider } from "./UserContext";
 
 export default function RootLayout({ children }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -15,21 +17,26 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="m-0 p-0">
-        {isAuthModalOpen && (
-          <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)}  />
-        )}
+        <UserProvider>
+          <FontSizeProvider>
+            {isAuthModalOpen && (
+              <AuthModal
+                isOpen={isAuthModalOpen}
+                onClose={() => setIsAuthModalOpen(false)}
+              />
+            )}
 
-        <div style={{ display: "flex", minHeight: "100vh" }}>
-          {!hideComponents && (
-            <div style={{ width: "250px", flexShrink: 0 }}>
-              <Sidebar />
-            </div>
-          )}
+          <div style={{ display: "flex", minHeight: "100vh" }}>
+            {!hideComponents && (
+              <div style={{ width: "250px", flexShrink: 0 }}>
+                <Sidebar />
+              </div>
+            )}
 
-          <main style={{ flex: 1, padding: "20px" }}>
-              {children}
-          </main>
-        </div>
+            <main style={{ flex: 1, padding: "20px" }}>{children}</main>
+          </div>
+        </FontSizeProvider>
+        </UserProvider>
       </body>
     </html>
   );

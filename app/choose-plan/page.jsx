@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { AiOutlineCheckCircle, AiOutlineMinus } from "react-icons/ai";
+import { useUser } from "../UserContext";
 
 export default function ChoosePlanPage() {
   const [selectedPlan, setSelectedPlan] = useState("yearly");
+  const { setUser } = useUser();
 
   return (
     <div className="min-h-screen bg-white pb-20">
@@ -45,7 +47,9 @@ export default function ChoosePlanPage() {
           </div>
         </div>
 
-        <button className="w-full bg-green-500 text-white py-4 mt-8 rounded font-bold hover:bg-green-600">
+        <button className="w-full bg-green-500 text-white py-4 mt-8 rounded font-bold hover:bg-green-600"
+          onClick={() => setUser(prev => ({ ...prev, plan: selectedPlan, LoggedIn: true }))}
+          >
           Start your {selectedPlan === "yearly" ? "7-day" : ""} trial
         </button>
       </section>
