@@ -84,7 +84,7 @@ export default function BookDetailsPage() {
                 <AiOutlineRead /> Read
               </button>
             </Link>
-            <Link href={`/books/${book.id}/listen`}>
+            <Link href={`/books/${book.id}/read`}>
               <button className="bg-[#032b41] text-white w-[150px] h-[48px] rounded flex items-center justify-center gap-2 font-semibold">
                 <AiOutlineAudio /> Listen
               </button>

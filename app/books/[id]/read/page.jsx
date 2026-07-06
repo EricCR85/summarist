@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { getBooks } from "../../../../services/bookServices";
 import { useParams } from "next/navigation";
+import ReactAudioPlayer from "react-audio-player";
 
 export default function ReadPage() {
   const { id } = useParams();
@@ -42,8 +43,23 @@ export default function ReadPage() {
       <p className="text-gray-700 leading-8 mb-10">
         {book.summary || "No book text available."}
       </p>
+
+    <div className="fixed bottom-0 left-0 right-0 bg-[#032b41] text-white p-4 flex items-center gap-4">
+      <img src={book.cover} className="w-12 h-16 object-cover" />
+      <div>
+        <h4 className="font-bold">{book.title}</h4>
+        <p className="text-sm text-gray-300">{book.author}</p>
+      </div>
+
+      <ReactAudioPlayer
+        src={book.audioLink}
+        controls
+        className="w-full"
+      />
+    </div>
     </div>
   );
 }
+
 
       
