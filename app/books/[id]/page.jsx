@@ -17,6 +17,7 @@ export default function BookDetailsPage() {
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const { library, addToLibrary, removeFromLibrary } = useLibrary();
+  const [showPlayer, setShowPlayer] = useState(false);
 
   const savedBook = library.find((b) => b.bookId === id);
 
@@ -81,7 +82,9 @@ export default function BookDetailsPage() {
               <AiOutlineRead /> Read
             </button>
 
-            <button className="bg-[#032b41] text-white w-[150px] h-[48px] rounded flex items-center justify-center gap-2 font-semibold">
+            <button
+            onClick={() => setShowPlayer(true)} 
+            className="bg-[#032b41] text-white w-[150px] h-[48px] rounded flex items-center justify-center gap-2 font-semibold">
               <AiOutlineAudio /> Listen
             </button>
           </div>
@@ -95,11 +98,21 @@ export default function BookDetailsPage() {
               }
             }}
             className="text-blue-600 font-semibold flex items-center gap-2 mb-2"
-          >
+            >
             <AiOutlineStar />
             {savedBook ? "Saved in my library" : "Add title to My Library"}
           </button>
         </div>
+            {showPlayer && (
+              <div className="mt-6 p-4 border rounded -lg bg-gray-50 max-w-xl">
+                <p className="font-semibold mb-3">{book.title}</p>
+                <audio controls className="w-full">
+                  <source src={book.audioLink} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            )}
+
 
         <div className="w-[300px] flex justify-center">
           <img
