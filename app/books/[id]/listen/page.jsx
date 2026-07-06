@@ -1,9 +1,10 @@
   "use client";
   import { useState, useEffect, use } from "react";
   import { getBooks } from "../../../../services/bookServices";
+  import { useParams } from "next/navigation";
 
-    export default function ListenPage({ params }) {
-    const { id } = use(params);
+    export default function ListenPage() {
+    const { id } = useParams();
 
     const [book, setBook] = useState(null);
     const [loading, setLoading] = useState(true);
