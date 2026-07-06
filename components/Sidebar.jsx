@@ -19,10 +19,15 @@ export default function Sidebar() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   return (
-    <aside className="w-64 min-h-screen h-screen bg-white border-r border-gray-200 p-6 flex flex-col sticky top-0 z-[10000]">
+    <aside className="w-64 min-h-screen h-screen bg-white border-r border-gray-200 p-6 flex flex-col sticky top-0 z-[10000]"
+    style={{ height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+    }}>
       <div>
-        <div className="mb-10">
-          <img src="/assets/logo.png" alt="Summarist Logo" className="w-32" />
+        <div style={{ marginBottom: "48px" }}>
+          <img src="/assets/logo.png" alt="Summarist Logo" className="w-32 " />
         </div>
 
         <nav className="flex flex-col gap-6"> 
@@ -49,7 +54,7 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      <nav className="flex flex-col gap-6 mt-auto">
+      <nav className="flex flex-col gap-6">
         <SidebarLink
           href="/settings"
           icon={<AiOutlineSetting />}
