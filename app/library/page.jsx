@@ -1,22 +1,50 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLibrary } from "../../hooks/useLibrary";
 import { useUser } from "../UserContext";
 import SearchBar from "../../components/SearchBar";
 import Link from "next/link";
+import AuthModal from "../../components/AuthModal";
 
 export default function LibraryPage() {
   const { library, loading, removeFromLibrary } = useLibrary();
   const { user } = useUser();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!loading && !user?.loggedIn) {
-      router.push(`/settings`);
-    }
-  }, [user, loading, router]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  if (!user?.loggedIn) {
+    return (
+      <main className="settings">
+        <h1 className="settings__title">My Library</h1>
+
+        <div className="settings__login">
+          <img
+            src="/assets/login.png"
+            alt="Login required"
+            className="settings__login--img"
+          />
+
+          <p className="settings__login--text">
+            Log in to your account to see your details.
+          </p>
+
+          <button
+            className="settings_-login--btn"
+            onClick={() => setIsModalOpen(true)}
+          >Login</button>
+        </div>
+
+        {isModalOpen && (
+          <AuthModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          />
+        )}
+      </main>
+    );
+  }
 
   if (loading) {
     return (

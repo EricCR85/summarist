@@ -28,12 +28,12 @@ export default function RootLayout({ children }) {
 
           <div style={{ display: "flex", minHeight: "100vh" }}>
             {!hideComponents && (
-              <div style={{ width: "250px", flexShrink: 0 }}>
+              <div style={{ width: "256px", flexShrink: 0 }}>
                 <Sidebar />
               </div>
             )}
 
-            <main style={{ flex: 1, padding: 0 }}>{children}</main>
+            <main style={{ flex: 1, minWidth: 0, overflowX: "hidden" }}>{children}</main>
           </div>
         </FontSizeProvider>
         </UserProvider>
