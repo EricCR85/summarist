@@ -61,50 +61,31 @@ export default function SearchBar() {
   };
 
   return (
-    <div ref={searchRef} className="relative w-full max-w-xs flex justify-end">
-      <div className="flex items-center border-b border-gray-300 py-2">
-        <AiOutlineSearch className="text-xl text-gray-400 mr-3" />
+    <div className="search">
+      <div className="search__input--wrapper">
         <input
           type="text"
-          placeholder="Search for books by title or author"
+          placeholder="Search for books"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={handleKeyDown}
-          role="combobox"
-          aria-expanded={results.length > 0}
-          aria-controls="search-results-list"
-          aria-autocomplete="list"
-          className="w-full bg-transparent focus:outline-none text-lg text-gray-700 placeholder-gray-400"
+          className="search__input"
         />
+
+        <button className="search__button" type="button">
+          <AiOutlineSearch />
+        </button>
       </div>
 
-      {isLoading && <p className="text-gray-500 text-sm mt-2">Searching...</p>}
+      {query.length > 0 && (
+        <div className="search__dropdown">
+          {isLoading && <p>Searching...</p>}
 
-      {!isLoading && results.length === 0 && query.length > 0 && (
-        <p className="text-gray-500 text-sm mt-2">No books found.</p>
-      )}
+          {!isLoading && results.length === 0 && <p>No books found.</p>}
 
-      {results.length > 0 && (
-        <ul
-          id="search-results-list"
-          role="listbox"
-          className="absolute z-50 w-full bg-white border border-gray-200 rounded-b-lg shadow-lg mt-[-15px] overflow-hidden"
-        >
-          {results.map((book, index) => (
-            <li
-              key={book.id}
-              role="option"
-              aria-selected={index === activeIndex}
-              className={`${index === activeIndex ? "bg-gray-200" : ""} hover:bg-gray-100`}
-            >
-              <Link href={`/books/${book.id}`} className="block px-4 py-2">
-                {book.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
+          {!isLoading &&
+            results.map((book) => <p key={book.id}>{book.title}</p>)}
+        </div>
       )}
     </div>
   );
 }
-

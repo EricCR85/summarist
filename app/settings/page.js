@@ -15,20 +15,20 @@ export default function SettingsPage() {
 
   if (!user?.loggedIn) {
     return (
-      <main className="p-8">
-        <div className="flex w-full jestify-end items-center mb-10 gap-4">
+      <main className="settings">
+        <div className="settings__search">
           <SearchBar />
         </div>
 
-        <h1 className="text-4xl font-bold mb-12 text-left">Settings</h1>
+        <h1 className="settings__title">Settings</h1>
 
-        <div className="flex flex-col items-center mt-20 text-center">
+        <div className="settings__login">
           <img
             src="/assets/login.png"
             alt="Login required"
             className="w-80 h-auto mb-8"
           />
-          <p className="mb-8 text- xl font-semibold text-gray-800">
+          <p className="settings__login--text">
             Log in to your account to see your details.
           </p>
                 <button 

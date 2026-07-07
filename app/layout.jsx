@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
               </div>
             )}
 
-            <main style={{ flex: 1, padding: "20px" }}>{children}</main>
+            <main style={{ flex: 1, padding: 0 }}>{children}</main>
           </div>
         </FontSizeProvider>
         </UserProvider>
