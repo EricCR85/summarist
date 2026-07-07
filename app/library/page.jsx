@@ -1,20 +1,29 @@
 "use client";
+// import { useRouter } from "next/navigation";
+// import { useUser } from "../UserContext";
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useAuth } from "../../hooks/useAuth";
 import { useLibrary } from "../../hooks/useLibrary";
-import { useUser } from "../UserContext";
 import SearchBar from "../../components/SearchBar";
 import Link from "next/link";
 import AuthModal from "../../components/AuthModal";
 
 export default function LibraryPage() {
+  const { user, loading: authLoading } = useAuth();
   const { library, loading, removeFromLibrary } = useLibrary();
-  const { user } = useUser();
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  if (!user?.loggedIn) {
+  if (authLoading || loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-xl animate-pulse">Loading your collection...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
     return (
       <main className="settings">
         <h1 className="settings__title">My Library</h1>
@@ -31,37 +40,20 @@ export default function LibraryPage() {
           </p>
 
           <button
-            className="settings_-login--btn"
+            className="settings__login--btn"
             onClick={() => setIsModalOpen(true)}
-          >Login</button>
+          >
+            Login
+          </button>
         </div>
 
         {isModalOpen && (
           <AuthModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
           />
         )}
       </main>
-    );
-  }
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-xl animate-pulse">Loading your collection...</p>
-      </div>
-    );
-  }
-
-  if (library.length === 0) {
-    return (
-      <div className="p-10 text-center">
-        <h1 className="text-3xl font-bold mb-4">My Library</h1>
-        <p className="text-gray-500">
-          Save your favorite books! When you save a book, it will appear here.
-        </p>
-      </div>
     );
   }
 
