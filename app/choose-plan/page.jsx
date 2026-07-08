@@ -73,6 +73,7 @@ export default function ChoosePlanPage() {
       {isModalOpen && (
     <AuthModal isOpen={isModalOpen} onClose={closeModal} />
   )}
+  
      
         <p className="text-center text-xs mt-2 text-gray-500">
           Cancel your trial at any time before it ends, and you won't be
