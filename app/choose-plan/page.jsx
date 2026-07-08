@@ -65,6 +65,12 @@ export default function ChoosePlanPage() {
           <p className="text-xl font-bold">$9.99/month</p>
           <p className="text-sm text-gray-500">No trial included</p>
         </div>
+  
+     
+        <p className="text-center text-xs mt-2 text-gray-500">
+          Cancel your trial at any time before it ends, and you won't be
+          charged.
+        </p>
 
   <div className="start-button-wrapper">
     <button className="start-button" onClick={openModal}>
@@ -73,12 +79,6 @@ export default function ChoosePlanPage() {
       {isModalOpen && (
     <AuthModal isOpen={isModalOpen} onClose={closeModal} />
   )}
-  
-     
-        <p className="text-center text-xs mt-2 text-gray-500">
-          Cancel your trial at any time before it ends, and you won't be
-          charged.
-        </p>
   </div>
       </section>
       <section className="faq-wrapper">

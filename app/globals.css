@@ -725,6 +725,9 @@ button:disabled {
   position: sticky;
   bottom: 24px;
   z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 600px;
   margin: 32px auto 0;
   padding: 0 20px;
