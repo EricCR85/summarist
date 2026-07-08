@@ -9,6 +9,11 @@ export default function ChoosePlanPage() {
   const { setUser } = useUser();
   const [openFaq, setOpenFaq] = useState(0);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className="min-h-screen bg-white pb-20">
       <section className="choose-plan__hero">
@@ -66,6 +71,7 @@ export default function ChoosePlanPage() {
           className="start-button"
           onClick={() =>
             setUser((prev) => ({ ...prev, plan: selectedPlan, loggedIn: true }))
+            
           }
         >
           Start your {selectedPlan === "yearly" ? "7-day" : ""} trial
@@ -75,7 +81,7 @@ export default function ChoosePlanPage() {
           charged.
         </p>
       </section>
-      <section className="fap-wrapper">
+      <section className="faq-wrapper">
         <h2 className="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
         <FAQItem question="How does the free 7-day trial work?"
                  answer="You can enjoy full access to all features during your 7-day trial. you won't be charged until the trial period ends."
@@ -99,16 +105,16 @@ export default function ChoosePlanPage() {
 function FAQItem({ question, answer }) {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <div className="border-b py-4">
+    <div className="faq-item">
       <div 
-          className="flex justify-between items-center font-bold cursor-pointer hover:text-green-600 transition"
+          className="faq-question"
           onClick={() => setIsOpen(!isOpen)}
           >
         <span>{question}</span>
-        <AiOutlineMinus  className={`transition-transform duration-300${isOpen ? `rotate-180` : ``}`}/>
+        <AiOutlineMinus  className={`faq-icon ${isOpen ? "faq-icon--open" : ""}`}/>
       </div>
       {isOpen && (
-        <div className="mt-4 faq-answer animate-fade-in pb-4">
+        <div className="faq-answer animate-fade-in">
           {answer}
         </div>
       )}
