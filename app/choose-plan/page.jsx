@@ -73,12 +73,12 @@ export default function ChoosePlanPage() {
       {isModalOpen && (
     <AuthModal isOpen={isModalOpen} onClose={closeModal} />
   )}
-  </div>
-{/*      
+     
         <p className="text-center text-xs mt-2 text-gray-500">
           Cancel your trial at any time before it ends, and you won't be
           charged.
-        </p> */}
+        </p>
+  </div>
       </section>
       <section className="faq-wrapper">
         <h2 className="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
