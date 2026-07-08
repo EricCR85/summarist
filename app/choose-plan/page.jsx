@@ -1,13 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { AiOutlineCheckCircle, AiOutlineMinus } from "react-icons/ai";
-import { useUser } from "../UserContext";
 import Footer from "../../components/Footer";
 import AuthModal from "../../components/AuthModal";
 
 export default function ChoosePlanPage() {
   const [selectedPlan, setSelectedPlan] = useState("yearly");
-  const { setUser } = useUser();
   const [openFaq, setOpenFaq] = useState(0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,15 +67,18 @@ export default function ChoosePlanPage() {
         </div>
 
   <div className="start-button-wrapper">
-    <button className="Start-button" onClick={openModal}>
+    <button className="start-button" onClick={openModal}>
       Start your {selectedPlan === "yearly" ? "7-day" : ""} trial
     </button>
+      {isModalOpen && (
+    <AuthModal isOpen={isModalOpen} onClose={closeModal} />
+  )}
   </div>
-     
+{/*      
         <p className="text-center text-xs mt-2 text-gray-500">
           Cancel your trial at any time before it ends, and you won't be
           charged.
-        </p>
+        </p> */}
       </section>
       <section className="faq-wrapper">
         <h2 className="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
@@ -98,9 +99,7 @@ export default function ChoosePlanPage() {
       <Footer />{" "}
     </div>
   );
-  {isModalOpen && (
-    <AuthModal isOpen={isModalOpen} onClose={closeModal} />
-  )}
+
 }
 
 function FAQItem({ question, answer }) {
