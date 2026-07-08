@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { AiOutlineCheckCircle, AiOutlineMinus } from "react-icons/ai";
 import { useUser } from "../UserContext";
 import Footer from "../../components/Footer";
+import AuthModal from "../../components/AuthModal";
 
 export default function ChoosePlanPage() {
   const [selectedPlan, setSelectedPlan] = useState("yearly");
@@ -67,15 +68,12 @@ export default function ChoosePlanPage() {
           <p className="text-sm text-gray-500">No trial included</p>
         </div>
 
-        <button
-          className="start-button"
-          onClick={() =>
-            setUser((prev) => ({ ...prev, plan: selectedPlan, loggedIn: true }))
-            
-          }
-        >
-          Start your {selectedPlan === "yearly" ? "7-day" : ""} trial
-        </button>
+  <div className="start-button-wrapper">
+    <button className="Start-button" onClick={openModal}>
+      Start your {selectedPlan === "yearly" ? "7-day" : ""} trial
+    </button>
+  </div>
+     
         <p className="text-center text-xs mt-2 text-gray-500">
           Cancel your trial at any time before it ends, and you won't be
           charged.
@@ -100,6 +98,9 @@ export default function ChoosePlanPage() {
       <Footer />{" "}
     </div>
   );
+  {isModalOpen && (
+    <AuthModal isOpen={isModalOpen} onClose={closeModal} />
+  )}
 }
 
 function FAQItem({ question, answer }) {
