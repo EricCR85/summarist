@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   AiOutlineHome,
@@ -13,95 +14,100 @@ import {
 } from "react-icons/ai";
 import { useAuth } from "../hooks/useAuth";
 import AuthModal from "./AuthModal";
-import { useFontSize } from "./FontSizeContext";
 
-const { user, signOut } = useAuth();
-const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-const { fontSize, setFontSize } = useFontSize();
+export default function Sidebar() {
+  const { user, signOut } = useAuth();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
-const isActive = (size) => fontSize === size;
+  return (
+    <aside
+      className="w-64 min-h-screen h-screen bg-white border-r border-gray-200 p-6 flex flex-col sticky top-0 z-40"
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        paddingBottom: "24px",
+      }}
+    >
+      <div className="w-full bg-white">
+        <div style={{ marginBottom: "48px" }}>
+          <img src="/assets/logo.png" alt="Summarist Logo" className="w-32" />
+        </div>
 
-return (
-  <aside
-    className="w-64 min-h-screen h-screen bg-white border-r border-gray-200 p-6 flex flex-col sticky top-0 z-40"
-    style={{
-      height: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      paddingBottom: "24px",
-    }}
-  >
-    <div className="w-full bg-white">
-      <div style={{ marginBottom: "48px" }}>
-        <img src="/assets/logo.png" alt="Summarist Logo" className="w-32 " />
+        <nav className="flex flex-col gap-10">
+          <SidebarLink
+            href="/for-you"
+            icon={<AiOutlineHome />}
+            label="For You"
+          />
+
+          <SidebarLink
+            href="/library"
+            icon={<AiOutlineBook />}
+            label="My Library"
+          />
+
+          <SidebarLink
+            href="/highlights"
+            icon={<AiOutlineHighlight />}
+            label="Highlights"
+            disabled
+          />
+
+          <SidebarLink
+            href="/search"
+            icon={<AiOutlineSearch />}
+            label="Search"
+            disabled
+          />
+        </nav>
       </div>
 
-      <nav className="flex flex-col gap-10">
-        <SidebarLink href="/for-you" icon={<AiOutlineHome />} label="For You" />
+      <nav className="flex flex-col gap-6">
         <SidebarLink
-          href="/library"
-          icon={<AiOutlineBook />}
-          label="My Library"
+          href="/settings"
+          icon={<AiOutlineSetting />}
+          label="Settings"
         />
+
         <SidebarLink
-          href="/highlights"
-          icon={<AiOutlineHighlight />}
-          label="Highlights"
+          href="/help"
+          icon={<AiOutlineQuestionCircle />}
+          label="Help & Support"
           disabled
         />
-        <SidebarLink
-          href="/search"
-          icon={<AiOutlineSearch />}
-          label="Search"
-          disabled
-        />
+
+        {user ? (
+          <button
+            onClick={signOut}
+            className="flex items-center gap-4 text-gray-600 hover:text-black transition cursor-pointer"
+          >
+            <span className="text-xl">
+              <AiOutlineLogout />
+            </span>
+            <span className="font-medium">Logout</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => setIsAuthModalOpen(true)}
+            className="flex items-center gap-4 text-gray-600 hover:text-black transition cursor-pointer"
+          >
+            <span className="text-xl">
+              <AiOutlineLogin />
+            </span>
+            <span className="font-medium">Login</span>
+          </button>
+        )}
       </nav>
-    </div>
 
-    <nav className="flex flex-col gap-6">
-      <SidebarLink
-        href="/settings"
-        icon={<AiOutlineSetting />}
-        label="Settings"
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
       />
-
-      <SidebarLink
-        href="/help"
-        icon={<AiOutlineQuestionCircle />}
-        label="Help & Support"
-        disabled
-      />
-
-      {user ? (
-        <button
-          onClick={signOut}
-          className="flex items-center gap-4 text-gray-600 hover:text-black transition"
-        >
-          <span className="text-xl">
-            <AiOutlineLogout />
-          </span>
-          <span className="font-medium">Logout</span>
-        </button>
-      ) : (
-        <button
-          onClick={() => setIsAuthModalOpen(true)}
-          className="flex items-center gap-4 text-gray-600 hover:text-black transition"
-        >
-          <span className="text-xl">
-            <AiOutlineLogin />
-          </span>
-          <span className="font-medium">Login</span>
-        </button>
-      )}
-    </nav>
-
-    <AuthModal
-      isOpen={isAuthModalOpen}
-      onClose={() => setIsAuthModalOpen(false)}
-    />
-  </aside>
-);
+    </aside>
+  );
+}
 
 function SidebarLink({ href, icon, label, disabled = false }) {
   const baseClasses = "flex items-center gap-4 transition";
