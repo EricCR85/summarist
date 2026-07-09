@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { AiFillAudio, AiFillBulb, AiFillFileText } from "react-icons/ai";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
@@ -10,9 +11,14 @@ import AuthModal from "../components/AuthModal";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleJoinClick = () => {
+    router.push("/choose-plan");
+  };
 
   return (
     <>
@@ -36,8 +42,8 @@ export default function Home() {
                 <br className="remove--tablet" />
                 and even people who don't like to read.
               </div>
-              <button className="btn home__cta--btn" onClick={openModal}>
-                Login
+              <button className="btn home__cta--btn" onClick={handleJoinClick}>
+                Join Summarist
               </button>
             </div>
             <figure className="landing_image--mask">

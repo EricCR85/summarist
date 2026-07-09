@@ -29,8 +29,8 @@ export default function Sidebar() {
         height: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
-        paddingBottom: "90px",
+        justifyContent: "flex",
+        paddingBottom: "24px",
       }}
     >
       <div className="h-full w-64 bg-white">
@@ -38,7 +38,7 @@ export default function Sidebar() {
           <img src="/assets/logo.png" alt="Summarist Logo" className="w-32 " />
         </div>
 
-        <nav className="flex flex-col gap-6">
+        <nav className="flex flex-col gap-10">
           <SidebarLink
             href="/for-you"
             icon={<AiOutlineHome />}
@@ -60,7 +60,7 @@ export default function Sidebar() {
             label="Search"
           />
         </nav>
-        <div className="flex gap-3 mt-8 mb-4">
+        {/* <div className="flex gap-3 mt-8 mb-4">
           <div
             className={`px-1 ${fontSize === 14 ? `border-b-2 border-blue-500` : ``}`}
           >
@@ -89,7 +89,7 @@ export default function Sidebar() {
               Aa{" "}
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <nav className="flex flex-col gap-6">

@@ -13,6 +13,10 @@ export default function ChoosePlanPage() {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
+  const handleStartTrail = () => {
+    console.log("Proceeding to payment for:", selectedPlan);
+  }
+
   return (
     <div className="min-h-screen bg-white pb-20">
       <section className="choose-plan__hero">
@@ -73,7 +77,7 @@ export default function ChoosePlanPage() {
         </p>
 
   <div className="start-button-wrapper">
-    <button className="start-button" onClick={openModal}>
+    <button className="start-button" onClick={handleStartTrail}>
       Start your {selectedPlan === "yearly" ? "7-day" : ""} trial
     </button>
       {isModalOpen && (
