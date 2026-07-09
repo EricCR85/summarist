@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const pathname = usePathname();
 
-  const hideComponents = pathname === "/" || pathname === "/choose-plan";
+  const hideComponents = pathname === "/" || pathname === "/choose-plan" || pathname === "/login";
 
   return (
     <html lang="en">
