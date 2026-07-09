@@ -29,11 +29,11 @@ export default function Sidebar() {
         height: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex",
+        justifyContent: "space-between",
         paddingBottom: "24px",
       }}
     >
-      <div className="h-full w-64 bg-white">
+      <div className="w-full bg-white">
         <div style={{ marginBottom: "48px" }}>
           <img src="/assets/logo.png" alt="Summarist Logo" className="w-32 " />
         </div>
