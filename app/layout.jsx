@@ -12,7 +12,8 @@ export default function RootLayout({ children }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const pathname = usePathname();
 
-  const hideComponents = pathname === "/" || pathname === "/choose-plan" || pathname === "/login";
+  const hideComponents =
+    pathname === "/" || pathname === "/choose-plan" || pathname === "/login";
 
   return (
     <html lang="en">
@@ -26,16 +27,18 @@ export default function RootLayout({ children }) {
               />
             )}
 
-          <div style={{ display: "flex", minHeight: "100vh" }}>
-            {!hideComponents && (
-              <div style={{ width: "256px", flexShrink: 0 }}>
-                <Sidebar />
-              </div>
-            )}
+            <div style={{ display: "flex", minHeight: "100vh" }}>
+              {!hideComponents && (
+                <div style={{ width: "256px", flexShrink: 0 }}>
+                  <Sidebar />
+                </div>
+              )}
 
-            <main style={{ flex: 1, minWidth: 0, overflowX: "hidden" }}>{children}</main>
-          </div>
-        </FontSizeProvider>
+              <main style={{ flex: 1, minWidth: 0, overflowX: "hidden" }}>
+                {children}
+              </main>
+            </div>
+          </FontSizeProvider>
         </UserProvider>
       </body>
     </html>
