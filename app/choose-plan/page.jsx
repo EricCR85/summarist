@@ -121,12 +121,12 @@ export default function ChoosePlanPage() {
         />
         <FAQItem
           question="What's included in the Premium plan?"
-          answer="The Premium plan includes unlimited access to all book summaries, offline reading, and exlusive audio content."
+          answer="The Premium plan includes unlimited access to all book summaries, offline reading, and exclusive audio content."
         />
 
         <FAQItem
           question="Can I cancel during my trial or subscription?"
-          answer="Absolutely. you can cancel your trial or subscribtion at any time, and you will retain access until the end of your billing cycle."
+          answer="Absolutely. you can cancel your trial or subscription at any time, and you will retain access until the end of your billing cycle."
         />
       </section>
       <Footer />{" "}
@@ -137,15 +137,13 @@ export default function ChoosePlanPage() {
 function FAQItem({ question, answer }) {
   const [isOpen, setIsOpen] = useState(false);
 
-
-
-return (
+  return (
     <div className="faq-item">
       <div className="faq-question" onClick={() => setIsOpen(!isOpen)}>
         <span>{question}</span>
         <AiOutlineMinus
           className={`faq-icon ${isOpen ? "faq-icon--open" : ""}`}
-          />
+        />
       </div>
       {isOpen && <div className="faq-answer animate-fade-in">{answer}</div>}
     </div>
@@ -165,9 +163,7 @@ function PaymentModal({ selectedPlan, onClose, onContinue }) {
           X
         </button>
 
-        <h2 className="text-2xl font-bold text-center mb-2">
-          Checkout
-        </h2>
+        <h2 className="text-2xl font-bold text-center mb-2">Checkout</h2>
 
         <p className="text-center text-gray-500 mb-6">
           Confirm your plan before continuing.
@@ -200,10 +196,7 @@ function PaymentModal({ selectedPlan, onClose, onContinue }) {
               className="w-1/2 border rounded-md p-3"
               placeholder="MM / YY"
             />
-            <input
-              className="w-1/2 border rounded-md p-3"
-              placeholder="CVC"
-            />
+            <input className="w-1/2 border rounded-md p-3" placeholder="CVC" />
           </div>
         </div>
 

@@ -2,7 +2,6 @@
 @import "tailwindcss";
 
 * {
-  
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
@@ -685,69 +684,87 @@ button:disabled {
   background-color: #042330;
   color: white;
   text-align: center;
-  padding: 60px 20px;
-  border-bottom-left-radius: 50% 100px;
-  border-bottom-right-radius: 50% 100px;
-  margin-bottom: 40px;
+  padding: 48px 20px 90px;
+  margin-bottom: 80px;
+  border-bottom-left-radius: 50% 80px;
+  border-bottom-right-radius: 50% 80px;
+  position: relative;
 }
 
 .choose-plan__hero h1 {
-  font-size: 2.5rem;
+  font-size: 32px;
   font-weight: 700;
-  margin-bottom: 10px;
+  max-width: 650px;
+  margin: 0 auto 12px;
+  line-height: 1.2;
 }
 
 .choose-plan__hero p {
-  font-size: 1.1rem;
-  margin-bottom: 20px;
+  font-size: 14px;
   opacity: 0.9;
+  margin-bottom: 24px;
 }
 
 .choose-plan__hero img {
-  display: block;
-  margin: 20px auto 0;
-  max-width: 300px;
+  position: absolute;
+  left: 50%;
+  bottom: -55px;
+  transform: translateX(-50%);
+  max-width: 160px;
   width: 100%;
 }
 
 .plan-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   border: 2px solid #e5e7eb;
-  padding: 20px;
+  padding: 24px;
   margin-bottom: 16px;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.plan-container:hover {
+  border-color: #22c55e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
 .plan-container.selected {
   border-color: #22c55e;
+  background-color: #f0fdf4;
 }
 
 .start-button-wrapper {
-  background: yellow;
   position: sticky;
   bottom: 0;
   z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* max-width: 600px;
-  margin: 32px auto 0;
-  padding: 0 20px; */
+  background: white;
+  padding: 16px 0;
+  margin-top: 24px;
+  
 }
 
 .start-button {
   width: 100%;
-  background-color: #22c55e;
-  color: white;
+  background-color: #2bd97c;
+  color: #032b41;
   padding: 16px;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: 700;
   font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.start-button:hover {
+  background-color: #20ba69;
 }
 
 .plan-wrapper {
-  max-width: 600px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -755,16 +772,14 @@ button:disabled {
 .icons-container {
   display: flex;
   justify-content: center;
-  gap: 40px;
-  margin-bottom: 40px;
+  gap: 32px;
+  margin-bottom: 48px;
   text-align: center;
 }
 
 .icon-item {
-  max-width: 150px;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+flex: 1;
+max-width: 180px;
 }
 
 .animate-fade-in {
