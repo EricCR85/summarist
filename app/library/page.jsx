@@ -93,7 +93,10 @@ export default function LibraryPage() {
                 <h2 className="text-lg font-bold">{book.title}</h2>
                 <p className="text-sm text-gray-600">{book.author}</p>
                 <button
-                  onClick={() => removeFromLibrary(book.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    removeFromLibrary(book.id);
+                  }}
                   className="mt-3 bg-red-500 text-white px-3 py-1 rounded"
                 >
                   Remove

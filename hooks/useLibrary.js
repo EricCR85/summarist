@@ -2,31 +2,43 @@ import { useEffect, useState } from "react";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db, auth } from "../firebase";
 import { addDoc, deleteDoc, doc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+
 
 export const useLibrary = () => {
   const [library, setLibrary] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const user = auth.currentUser;
+  const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
     if (!user) {
+      setLibrary([]);
       setLoading(false);
       return;
     }
 
-    const q = query(collection(db, "library"), where("userId", "==", user.uid));
+    const q = query(
+      collection(db, "library"),
+      where("userId", "==", user.uid)
+    );
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
+    const unsubscribeLibrary = onSnapshot(q, (snapshot) => {
       const booksData = snapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
+
       setLibrary(booksData);
       setLoading(false);
     });
 
-    return () => unsubscribe();
-  }, []);
+    return unsubscribeLibrary;
+  });
+
+  return () => unsubscribeAuth();
+}, []);
+
+
 
   const addToLibrary = async (book) => {
     if (!auth.currentUser) {
