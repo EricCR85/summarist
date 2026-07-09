@@ -1,3 +1,5 @@
+
+
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
@@ -91,7 +93,6 @@ export default function BookDetailsPage() {
             </Link>
           </div>
 
-
           <button
             onClick={() => {
               if (savedBook) {
@@ -115,7 +116,6 @@ export default function BookDetailsPage() {
                 </audio>
               </div>
             )}
-
 
         <div className="w-[300px] flex justify-center">
           <img
