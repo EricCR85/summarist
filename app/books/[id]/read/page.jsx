@@ -42,7 +42,7 @@ export default function ListenPage({ params }) {
   if (!book) return <div className="p-10 text-center">Book not found.</div>;
 
   const player = (
-    <div className="fixed bottom-0 right-0 w-full bg-[#032b41] text-white p-4 flex items-center gap-4 shadow-lg z-50">
+    <div className="fixed bottom-0 left-64 right-0 bg-[#032b41] text-white p-4 flex items-center gap-4 shadow-lg z-50">
       <img
         src={book.imageLink}
         alt={book.title}
