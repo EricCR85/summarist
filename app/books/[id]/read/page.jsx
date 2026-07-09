@@ -59,30 +59,28 @@ export default function ListenPage({ params }) {
   );
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-10 pb-32" style={{ fontSize: `${fontSize}px` }}>
-      <div className="bg-white min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="flex justify-between items-center mb-10 border-b border-gray-100 pb-4">
-              <h1 className="text-xl font-bold text-gray-800">For You</h1>
-              <div className="w-full max-w-xs">
-                <SearchBar />
-              </div>
-            </div>
-      <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
-      <p className="text-gray-600 mb-8">{book.author}</p>
-      <h2 className="text-2xl font-bold mb-4">Listen Summary</h2>
-      <p className="text-gray-700 leading-8 mb-10 pd-10" style={{ paddingBottom: "60px"}}>
-        {book.summary || "No book text available."}
-      </p>
-      {mounted && createPortal(player, document.body)}
+    <div
+      className="max-w-4xl mx-auto px-8 py-10 pb-32"
+      style={{ fontSize: `${fontSize}px` }}
+    >
+      <div className="bg-white min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-16">
+        <div className="flex justify-between items-center mb-16 border-b border-gray-100 pb-4">
+          <h1 className="text-xl font-bold text-gray-800">For You</h1>
+          <div className="w-full max-w-xs">
+            <SearchBar />
+          </div>
+        </div>
+        <h1 className="text-3xl font-bold mb-2">{book.title}</h1>
+        <p className="text-gray-600 mb-8">{book.author}</p>
+        <h2 className="text-2xl font-bold mb-4">Listen Summary</h2>
+        <p
+          className="text-gray-700 leading-8 mb-10 pd-10"
+          style={{ paddingBottom: "60px" }}
+        >
+          {book.summary || "No book text available."}
+        </p>
+        {mounted && createPortal(player, document.body)}
       </div>
     </div>
   );
 }
-
-
-
-
-
-
-
-

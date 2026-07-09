@@ -1,5 +1,3 @@
-
-
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
@@ -49,8 +47,8 @@ export default function BookDetailsPage() {
   if (!book) return <div className="p-10 text-center">Book not found.</div>;
 
   return (
-    <div className="max-w-6xl mx-auto px-8 py-10">
-      <div className="flex justify-between gap-16 border-b border-gray-200 pb-10 mb-10">
+    <div className="max-w-6xl mx-auto px-6 sm:px-10 py-10 lg:py-14">
+      <div className="flex flex-col lg:flex-row justify-betwee gap-10 lg:gap-16 border-b border-gray-200 pb-10 mb-10">
         <div className="flex-1 max-w-2xl">
           <h1 className="text-4xl font-bold text-[#032b41] mb-3">
             {book.title}
@@ -107,17 +105,17 @@ export default function BookDetailsPage() {
             {savedBook ? "Saved in my library" : "Add title to My Library"}
           </button>
         </div>
-            {showPlayer && (
-              <div className="mt-6 p-4 border rounded -lg bg-gray-50 max-w-xl">
-                <p className="font-semibold mb-3">{book.title}</p>
-                <audio controls className="w-full">
-                  <source src={book.audioLink} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
-              </div>
-            )}
+        {showPlayer && (
+          <div className="mt-6 p-4 border rounded-lg bg-gray-50 max-w-xl">
+            <p className="font-semibold mb-3">{book.title}</p>
+            <audio controls className="w-full">
+              <source src={book.audioLink} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        )}
 
-        <div className="w-[300px] flex justify-center">
+        <div className="w-full lg:w-[300px] flex justify-center lg:justify-end ">
           <img
             src={book.imageLink}
             alt={book.title}
