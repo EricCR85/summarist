@@ -1,27 +1,7 @@
-import { render } from "@testing-library/react";
-import { expect, test, vi } from "vitest";
-import Page from "./page";
-import { useRouter, useSearchParams } from "next/navigation";
-
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: vi.fn(),
-    replace: vi.fn(),
-    prefetch: vi.fn(),
-  }),
-  useSearchParams: () => ({
-    get: vi.fn(),
-  }),
-}));
-
-const localStorageMock = {
-  getItem: vi.fn(() => null),
-  setItem: vi.fn(),
-  clear: vi.fn(),
-};
-global.localStorage = localStorageMock;
-
-test("renders app without crashing", () => {
-  const { container } = render(<Page />);
-  expect(container).toBeTruthy();
-});
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1 className="text-4xl font-bold">Welcome to Summarist</h1>
+    </main>
+  );
+}
