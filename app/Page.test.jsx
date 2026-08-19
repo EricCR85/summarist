@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { expect, test, vi } from "vitest";
-import Page from "./Page.test";
+import Page from "./page";
 import { useRouter, useSearchParams } from "next/navigation";
 
 vi.mock("next/navigation", () => ({
